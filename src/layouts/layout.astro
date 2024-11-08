@@ -1,0 +1,24 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Esportify" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg" href="favicon.svg" />
+    <link type="text/css" rel="stylesheet" href="esportify.css" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"></script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

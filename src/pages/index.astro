@@ -1,16 +1,12 @@
 ---
-
+import Layout from "../layouts/layout.astro";
+import HeroSlide from "../components/heroslide.astro"
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Esportify</title>
-	</head>
-	<body>
-		<h1>Esportify</h1>
-	</body>
-</html>
+<Layout title="Esportify">
+    <HeroSlide />
+  <div x-data="{ open: false }">
+    <button @click="open = !open">Toggle</button>
+    <div x-show="open">Contenu visible seulement quand "open" est true.</div>
+  </div>
+</Layout>

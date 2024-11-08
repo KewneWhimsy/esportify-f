@@ -1,0 +1,67 @@
+---
+// HeroSlider.astro
+---
+
+<style>
+  /* Styles du slider */
+  .slider-container {
+    position: relative;
+    width: 99%;
+    height: 600px; /* Ajuste la hauteur selon tes besoins */
+    max-width: 900px;
+    overflow: hidden;
+    margin-inline: auto;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 5s ease-in-out;
+  }
+
+  .slide-active {
+    opacity: 1;
+  }
+</style>
+
+<div x-data="heroSlider()" x-init="startAutoSlide()" class="slider-container">
+  <template x-for="(slide, index) in slides" :key="index">
+    <div
+      x-show="currentSlide === index"
+      :class="currentSlide === index ? 'slide slide-active' : 'slide'"
+      :style="`background-image: url(${slide});`"
+      x-transition:enter="opacity 1s ease-in-out"
+      x-transition:leave="opacity 1s ease-in-out"
+    >
+    </div>
+  </template>
+</div>
+<script is:inline>
+  function heroSlider() {
+    return {
+      slides: [
+        "/img/hero1.png",
+        "/img/hero2.png",
+        "/img/hero3.png",
+        "/img/hero4.png",
+        "/img/hero5.png",
+      ],
+      currentSlide: 0,
+      interval: null,
+      startAutoSlide() {
+        this.interval = setInterval(() => {
+          this.nextSlide();
+        }, 3000); // Change la durée pour ajuster la vitesse (ici toutes les 3 secondes)
+      },
+      nextSlide() {
+        this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+      },
+      stopAutoSlide() {
+        clearInterval(this.interval);
+      },
+    };
+  }
+</script>
