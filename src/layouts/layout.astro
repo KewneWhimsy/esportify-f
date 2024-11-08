@@ -12,6 +12,20 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="description" content="Esportify" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      /* Styles globaux, initialisation supplémentaire à l'initialisation faite par tailwind */
+      body {
+        font-family: system-ui;
+        background-color: #10101f;
+        color: #ffffef;
+      }
+      h1,h2, h3, h4 {
+        text-wrap: balance;
+      }
+      p {
+        text-wrap: pretty;
+      }
+    </style>
     <link rel="icon" type="image/svg" href="favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
