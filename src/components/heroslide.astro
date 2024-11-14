@@ -1,6 +1,3 @@
----
---- 
-
 <style>
     .slider-container {
       position: relative;
@@ -25,7 +22,7 @@
     }
   </style>
   
-  <div x-data="heroSlider()" x-init="startAutoSlide()" class="slider-container">
+  <div x-data="heroSlider()" x-init="startAutoSlide()" @mouseenter="stopAutoSlide()" @mouseleave="startAutoSlide()" class="slider-container">
     <template x-for="(slide, index) in slides" :key="index">
       <div
         :class="currentSlide === index ? 'slide slide-active' : 'slide'"
