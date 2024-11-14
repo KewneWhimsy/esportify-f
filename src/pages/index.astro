@@ -1,7 +1,8 @@
 ---
 import Layout from "../layouts/layout.astro";
 import HeroSlide from "../components/heroslide.astro";
-import EventTimeline from "../components/eventtimeline.astro"
+import EventTimeline from "../components/eventtimeline.astro";
+const apiUrl = import.meta.env.VITE_API_URL || 'https://esportify-backend.onrender.com';
 ---
 
 <Layout title="Esportify">
@@ -9,12 +10,12 @@ import EventTimeline from "../components/eventtimeline.astro"
   <div class="text-center mt-6 mx-auto max-w-[900px]">
     <h1 class="text-3xl">Joueurs, rassemblez-vous !</h1>
     <p class="my-3 mx-3 text-lg">
-      Plongez au cœur de l'action e-sport avec <strong>Esportify</strong>, votre plateforme de
-      référence pour suivre en temps réel les événements qui font vibrer la
-      communauté. Conçue pour offrir une expérience immersive et connectée. 
-      Avec <strong>Esportify</strong>, suivez vos événements favoris, créez les vôtres et
-      accédez à un chat en direct pendant les événements pour partager votre
-      passion.
+      Plongez au cœur de l'action e-sport avec <strong>Esportify</strong>, votre
+      plateforme de référence pour suivre en temps réel les événements qui font
+      vibrer la communauté. Conçue pour offrir une expérience immersive et
+      connectée. Avec <strong>Esportify</strong>, suivez vos événements favoris,
+      créez les vôtres et accédez à un chat en direct pendant les événements
+      pour partager votre passion.
     </p>
   </div>
   <section class="my-12">
@@ -24,4 +25,14 @@ import EventTimeline from "../components/eventtimeline.astro"
     <button @click="open = !open">Toggle</button>
     <div x-show="open">Contenu visible seulement quand "open" est true.</div>
   </div>
+  <!-- Bouton HTMX qui charge du contenu depuis le backend -->
+  <button
+    hx-get={`${apiUrl}/api/message`}
+    hx-target="#message"
+    hx-swap="innerHTML"
+  >
+    Charger un message dynamique
+  </button>
+
+  <div id="message">Ici sera affiché le message dynamique.</div>
 </Layout>
