@@ -22,20 +22,6 @@ console.log(apiUrl);  // Affiche l'URL de l'API
     </p>
   </div>
   <section class="my-12">
-    <EventTimeline />
+    <EventTimeline {apiUrl}/>
   </section>
-  <div x-data="{ open: false }">
-    <button @click="open = !open">Toggle</button>
-    <div x-show="open">Contenu visible seulement quand "open" est true.</div>
-  </div>
-  <!-- Bouton HTMX qui charge du contenu depuis le backend -->
-  <button
-    hx-get={`${apiUrl}/api/message`}
-    hx-target="#message"
-    hx-swap="innerHTML"
-  >
-    Charger un message dynamique
-  </button>
-
-  <div id="message">Ici sera affiché le message dynamique.</div>
 </Layout>

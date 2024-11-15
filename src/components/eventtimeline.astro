@@ -1,58 +1,32 @@
+---
+interface Props {
+  apiUrl: string;
+}
+
+const { apiUrl } = Astro.props;
+---
+
 <div class="flex justify-center">
   <div class="w-full max-w-4xl overflow-x-auto rounded-lg shadow-lg p-4">
-    <!-- Bande horizontale -->
-    <div class="flex space-x-4">
-      
-      <!-- Bloc d'événement avec image -->
-      <div class="flex bg-blue-200 p-6 rounded-lg w-80 flex-shrink-0">
-        <!-- Image de l'événement -->
-        <div class="w-24 h-24 bg-blue-300 rounded-lg overflow-hidden">
-          <img src="https://via.placeholder.com/150" alt="Image de l'événement" class="object-cover w-full h-full">
-        </div>
-        <!-- Contenu de l'événement -->
-        <div class="ml-4">
-          <h2 class="text-lg font-semibold">Événement 1</h2>
-          <p class="text-sm text-gray-700">Description de l'événement 1.</p>
-        </div>
-      </div>
-      
-      <!-- Autres blocs d'événements -->
-      <div class="flex bg-green-200 p-6 rounded-lg w-80 flex-shrink-0">
-        <div class="w-24 h-24 bg-green-300 rounded-lg overflow-hidden">
-          <img src="https://via.placeholder.com/150" alt="Image de l'événement" class="object-cover w-full h-full">
-        </div>
-        <div class="ml-4">
-          <h2 class="text-lg font-semibold">Événement 2</h2>
-          <p class="text-sm text-gray-700">Description de l'événement 2.</p>
-        </div>
-      </div>
+    <!-- Bande horizontale des événements -->
+    <div id="events-container" class="flex space-x-4">
+      <!-- Les événements seront chargés dynamiquement ici via HTMX -->
+    </div>
 
-      <div class="flex bg-green-200 p-6 rounded-lg w-80 flex-shrink-0">
-        <div class="w-24 h-24 bg-green-300 rounded-lg overflow-hidden">
-          <img src="https://via.placeholder.com/150" alt="Image de l'événement" class="object-cover w-full h-full">
-        </div>
-        <div class="ml-4">
-          <h2 class="text-lg font-semibold">Événement 3</h2>
-          <p class="text-sm text-gray-700">Description de l'événement 3.</p>
-        </div>
-      </div>
-
-      <div class="flex bg-green-200 p-6 rounded-lg w-80 flex-shrink-0">
-        <div class="w-24 h-24 bg-green-300 rounded-lg overflow-hidden">
-          <img src="https://via.placeholder.com/150" alt="Image de l'événement" class="object-cover w-full h-full">
-        </div>
-        <div class="ml-4">
-          <h2 class="text-lg font-semibold">Événement 4</h2>
-          <p class="text-sm text-gray-700">Description de l'événement 4.</p>
-        </div>
-      </div>
-      
-      <!-- Exemple de bloc d'ajout dynamique -->
-      <div hx-get="/fetch-new-event" hx-trigger="click" class="bg-gray-200 p-6 rounded-lg w-80 flex-shrink-0 text-center cursor-pointer">
-        <h2 class="text-lg font-semibold text-blue-500">Ajouter événement</h2>
-        <p class="text-sm text-gray-500">(Cliquer pour charger plus d'événements)</p>
-      </div>
-      
+    <!-- Bloc pour charger les événements -->
+    <div
+      class="p-4 rounded-lg w-full text-center"
+      hx-get={`${apiUrl}/api/events`}
+      hx-target="#events-container"
+      hx-trigger="load"
+      hx-swap="beforeend"
+    >
+    <!-- 
+    Fait une requête GET à l'URL spécifiée, 
+    Spécifie où insérer la réponse (id= "events-container"),
+    Déclenche la requête automatiquement lors du chargement de la page, 
+    Insère le contenu récupéré à la fin de l'élément cible 
+    -->
     </div>
   </div>
 </div>
