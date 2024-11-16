@@ -2,10 +2,6 @@
 import Layout from "../layouts/layout.astro";
 import HeroSlide from "../components/heroslide.astro";
 import EventTimeline from "../components/eventtimeline.astro";
-
-const apiUrl = import.meta.env.VITE_API_URL || 'https://esportify-backend.onrender.com'; 
-
-console.log(apiUrl);  // Affiche l'URL de l'API
 ---
 
 <Layout title="Esportify">
@@ -22,6 +18,6 @@ console.log(apiUrl);  // Affiche l'URL de l'API
     </p>
   </div>
   <section class="my-12">
-    <EventTimeline {apiUrl}/>
+    <EventTimeline />
   </section>
 </Layout>
