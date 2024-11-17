@@ -1,5 +1,6 @@
 ---
-interface Props { // Définit une interface TypeScript pour les propriétés du composant.
+interface Props {
+  // Définit une interface TypeScript pour les propriétés du composant.
   title: string; //  Spécifie que la propriété title doit être une chaîne de caractères.
 }
 
@@ -9,22 +10,80 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
 <!doctype html>
 <html lang="fr">
   <head>
-    <meta charset="UTF-8" /> <!-- Encodage des caractères pour le document -->
-    <meta name="description" content="Esportify" /> <!-- Fournit une description du site pour les moteurs de recherche -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- adapte la largeur de la page à celle de l'écran, force le zoom initial à 100% -->
+    <meta charset="UTF-8" />
+    <!-- Encodage des caractères pour le document -->
+    <meta name="description" content="Esportify" />
+    <!-- Fournit une description du site pour les moteurs de recherche -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- adapte la largeur de la page à celle de l'écran, force le zoom initial à 100% -->
     <style>
       /* Styles globaux, initialisation supplémentaire à l'initialisation faite par tailwind */
+      :root {
+        --primary-color: #d00000a6;
+        --secondary-color: #1F191D;
+      }
       body {
-        background: linear-gradient(to bottom, #1F191D, #121012);
+        background: linear-gradient(to bottom, #1f191d, #121012);
         @apply text-text font-body;
+      }
+      #events-container {
+        @apply flex gap-4 overflow-x-auto;
+      }
+      h1, h2, h3, h4 {
+        text-wrap: balance;
+      }
+      ::-webkit-scrollbar {
+        height: 1rem;
+        /* height of horizontal scrollbar */
+        width: 1rem;
+        /* width of vertical scrollbar */
+      }
+
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: var(--primary-color);
+      }
+
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: var(--primary-color);
+      }
+
+      /* Scrollbar corner */
+      ::-webkit-scrollbar-corner {
+        background: var(--primary-color);
+      }
+
+      /* GOOGLE CHROME */
+      * {
+        scrollbar-width: auto;
+        scrollbar-color: var(--primary-color) var(--secondary-color);
+      }
+
+      /* Browsers without `::-webkit-scrollbar-*` support */
+      @supports (not selector(::-webkit-scrollbar)) {
+        * {
+          scrollbar-width: auto;
+          scrollbar-color: var(--primary-color) var(--secondary-color);
+        }
       }
     </style>
     <link rel="icon" type="image/png" href="logoesportify.png" />
-    <meta name="generator" content={Astro.generator} /> <!-- Indique le générateur du site (Astro) -->
+    <meta name="generator" content={Astro.generator} />
+    <!-- Indique le générateur du site (Astro) -->
     <title>{title}</title> <!-- Définit le titre de la page par une valeur à lui donner quand on utilise ce composant (Props)-->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"></script> <!-- Charge Alpine.js pour l'interactivité JavaScript -->
-    <script defer src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script> <!-- Charge htmx pour les interactions côté serveur -->
-    <meta name="htmx-config" content='{"selfRequestsOnly":false}'> <!-- Configure htmx pour autoriser les requêtes vers des domaines externes -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"
+    ></script>
+    <!-- Charge Alpine.js pour l'interactivité JavaScript -->
+    <script
+      defer
+      src="https://unpkg.com/htmx.org@2.0.2"
+      integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ"
+      crossorigin="anonymous"></script>
+    <!-- Charge htmx pour les interactions côté serveur -->
+    <meta name="htmx-config" content='{"selfRequestsOnly":false}' /> <!-- Configure htmx pour autoriser les requêtes vers des domaines externes -->
   </head>
   <body>
     <slot /> <!-- Zone HTML à l'intérieur du composant, où le contenu spécifique de chaque page sera inséré -->

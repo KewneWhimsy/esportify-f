@@ -5,20 +5,20 @@ import { apiUrl } from "../lib/constants";
 <div class="flex justify-center">
   <div class="w-full max-w-4xl overflow-x-auto rounded-lg shadow-lg p-4">
     <!-- Bande horizontale des événements -->
-    <div id="events-container" class="flex space-x-4">
+    <div id="events-container" class="flex space-x-4 overflow-x-auto p-4 bg-[#161215] rounded-lg">
       <!-- Les événements seront chargés dynamiquement ici via HTMX -->
+      <p class="p-4 rounded-lg w-full text-center">Chargement des événements...</p>
     </div>
 
     <!-- Bloc pour charger les événements -->
-    <div
-      class="p-4 rounded-lg w-full text-center"
+     <div
       hx-get={`${apiUrl}/api/events`}
       hx-target="#events-container"
       hx-trigger="load"
-      hx-swap="beforeend"
+      hx-swap="innerHTML"
       hx-on-error="this.innerHTML = 'Erreur lors du chargement des événements';"
     >
-      <p>Chargement des événements...</p>
+      
     <!-- 
     Fait une requête GET à l'URL spécifiée, 
     Spécifie où insérer la réponse (id= "events-container"),
@@ -28,3 +28,4 @@ import { apiUrl } from "../lib/constants";
     </div>
   </div>
 </div>
+
