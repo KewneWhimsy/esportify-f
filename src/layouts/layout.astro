@@ -15,14 +15,9 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
     <style>
       /* Styles globaux, initialisation supplémentaire à l'initialisation faite par tailwind */
       body {
-        font-family: system-ui;
-        background-color: #10101f;
-        color: #ffffef;
+        background: linear-gradient(to bottom, #1F191D, #121012);
+        @apply text-text font-body;
       }
-      h1,h2, h3, h4 {
-        text-wrap: balance; /* Équilibre le wrap des titres */
-      }
-
     </style>
     <link rel="icon" type="image/png" href="logoesportify.png" />
     <meta name="generator" content={Astro.generator} /> <!-- Indique le générateur du site (Astro) -->

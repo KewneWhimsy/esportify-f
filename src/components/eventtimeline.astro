@@ -16,7 +16,9 @@ import { apiUrl } from "../lib/constants";
       hx-target="#events-container"
       hx-trigger="load"
       hx-swap="beforeend"
+      hx-on-error="this.innerHTML = 'Erreur lors du chargement des événements';"
     >
+      <p>Chargement des événements...</p>
     <!-- 
     Fait une requête GET à l'URL spécifiée, 
     Spécifie où insérer la réponse (id= "events-container"),
