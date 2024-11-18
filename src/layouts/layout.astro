@@ -82,18 +82,19 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
     <meta name="generator" content={Astro.generator} />
     <!-- Indique le générateur du site (Astro) -->
     <title>{title}</title> <!-- Définit le titre de la page par une valeur à lui donner quand on utilise ce composant (Props)-->
+    <!-- Charge Alpine.js pour l'interactivité Client -->
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"
     ></script>
-    <!-- Charge Alpine.js pour l'interactivité JavaScript -->
+    <!-- Charge htmx pour l'interactivité Serveur -->
     <script
       defer
       src="https://unpkg.com/htmx.org@2.0.2"
       integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ"
       crossorigin="anonymous"></script>
-    <!-- Charge htmx pour les interactions côté serveur -->
-    <meta name="htmx-config" content='{"selfRequestsOnly":false}' /> <!-- Configure htmx pour autoriser les requêtes vers des domaines externes -->
+    <!-- Configure htmx pour autoriser les requêtes vers des domaines externes + Transition pendant les swaps  -->
+    <meta name="htmx-config" content='{"selfRequestsOnly":false,"globalViewTransitions":true}' />
   </head>
   <body>
     <slot /> <!-- Zone HTML à l'intérieur du composant, où le contenu spécifique de chaque page sera inséré -->

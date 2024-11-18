@@ -2,42 +2,128 @@
 import { apiUrl } from "../lib/constants";
 ---
 
-<div class="flex justify-center">
-  <div class="w-full max-w-4xl overflow-x-auto rounded-lg shadow-lg p-4">
-    <!-- Bande horizontale des événements -->
-    <div id="events-container" class="flex space-x-4 overflow-x-auto p-4 bg-[#161215] rounded-lg">
-      <!-- Les événements seront chargés dynamiquement ici via HTMX -->
-      <p class="p-4 rounded-lg w-full text-center">Chargement des événements...</p>
+<section x-data="{ isOpen: false }" class="my-12">
+  <div class="flex flex-col items-center space-y-4">
+    <div class="flex gap-3 my-2">
+      <button
+        hx-get={`${apiUrl}/api/events?sort=players_count`}
+        hx-target="#events-container"
+        hx-swap="innerHTML"
+        hx-on-error="this.innerHTML = 'Erreur lors du tri des événements';"
+        class="px-2 py-1 bg-red-700 rounded hover:bg-red-800"
+      >
+        <p class="text-sm">Trier par joueurs</p>
+      </button>
+      <button
+        hx-get={`${apiUrl}/api/events?sort=start_datetime`}
+        hx-target="#events-container"
+        hx-swap="innerHTML"
+        hx-on-error="this.innerHTML = 'Erreur lors du tri des événements';"
+        class="px-2 py-1 bg-red-700 rounded hover:bg-red-800"
+      >
+        <p class="text-sm">Trier par date</p>
+      </button>
+      <button
+        hx-get={`${apiUrl}/api/events?sort=organisateur`}
+        hx-target="#events-container"
+        hx-swap="innerHTML"
+        hx-on-error="this.innerHTML = 'Erreur lors du tri des événements';"
+        class="px-2 py-1 bg-red-700 rounded hover:bg-red-800"
+      >
+        <p class="text-sm">Trier par organisateur</p>
+      </button>
     </div>
+  </div>
+  <div class="flex justify-center">
+    <div class="w-full max-w-4xl overflow-x-auto rounded-lg shadow-lg p-4">
+      <!-- Bande horizontale des événements -->
+      <div
+        id="events-container"
+        class="flex space-x-4 overflow-x-auto p-4 bg-[#161215] rounded-lg"
+      >
+        <!-- Les événements seront chargés dynamiquement ici via HTMX -->
+        <p class="p-4 rounded-lg w-full text-center">
+          Chargement des événements...
+        </p>
+      </div>
 
-    <!-- Bloc pour charger les événements -->
-     <div
-      hx-get={`${apiUrl}/api/events`}
-      hx-target="#events-container"
-      hx-trigger="load"
-      hx-swap="innerHTML"
-      hx-on-error="this.innerHTML = 'Erreur lors du chargement des événements';"
-    >   
-    <!-- 
+      <!-- Bloc pour charger les événements -->
+      <div
+        hx-get={`${apiUrl}/api/events`}
+        hx-target="#events-container"
+        hx-trigger="load"
+        hx-swap="innerHTML"
+        hx-on-error="this.innerHTML = 'Erreur lors du chargement des événements';"
+      >
+        <!-- 
     Fait une requête GET à l'URL spécifiée, 
     Spécifie où insérer la réponse (id= "events-container"),
     Déclenche la requête automatiquement lors du chargement de la page, 
     Insère le contenu récupéré à la fin de l'élément cible 
     -->
+      </div>
     </div>
   </div>
-</div>
+  <!-- Zone de popup avec HTMX et Alpine.js -->
+  <div
+    x-show="isOpen"
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    x-transition:opacity
+    @click.self="isOpen = false"
+  >
+    <div
+      x-show="isOpen"
+      id="popup-content"
+      class="rounded-lg p-6 w-full max-w-2xl"
+      style="background: linear-gradient(to bottom, #1f191d, #121012);"
+      x-transition:enter="transition ease-out duration-300"
+      x-transition:enter-start="opacity-0 scale-90"
+      x-transition:enter-end="opacity-100 scale-100"
+      x-transition:leave="transition ease-in duration-200"
+      x-transition:leave-start="opacity-100 scale-100"
+      x-transition:leave-end="opacity-0 scale-90"
+      hx-target="this"
+      hx-swap="innerHTML"
+    >
+      <button
+        class="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
+        @click="isOpen = false"
+      >
+        ✖
+      </button>
+      <!-- Contenu de la popup sera chargé ici via HTMX -->
+      <p>Chargement...</p>
+    </div>
+  </div>
+</section>
 
 <!-- Bloc statique pour s'assurer que tailwind charge les styles du bloc dynamique-->
-<div style="display: none;" class="flex flex-col justify-between bg-[#26232A] border 
-border-[#E5E7EB] p-4 rounded-lg w-64 shadow-md hover:shadow-lg transition-transform hover:scale-105 cursor-pointer flex-shrink-0 gap-0.5">
+<div
+style="display: none;"
+class="flex flex-col justify-between bg-[#26232A] border
+border-[#E5E7EB] p-4 rounded-lg w-64 shadow-md hover:shadow-lg transition-transform hover:scale-105 cursor-pointer flex-shrink-0 gap-0.5"
+>
   <div>
-    <h2 class="text-lg font-heading text-heading truncate-2-lines leading-tight mb-2"></h2>
+    <h2
+      class="text-lg font-heading text-heading truncate-2-lines leading-tight mb-2"
+    >
+    </h2>
   </div>
   <div>
-    <p class="text-sm">Joueurs : </p>
-    <p class="text-sm text-gray-400">Début : </p>
-    <p class="text-sm text-gray-400">Fin : </p>
+    <p class="text-sm">Joueurs :</p>
+    <p class="text-sm text-gray-400">Début :</p>
+    <p class="text-sm text-gray-400">Fin :</p>
   </div>
 </div>
+<div style="display: none;" class="bg-[#26232A] border p-6 rounded-lg shadow-lg h-full w-full">
+  <h2 class="text-2xl font-bold mb-4 font-heading text-heading truncate-2-lines"></h2>
+  <p class="mb-4"></p>
+  <p><strong>Joueurs :</strong> </p>
+  <p><strong>Organisateur :</strong> </p>
+  <p><strong>Début :</strong> </p>
+  <p><strong>Fin :</strong> </p>
+  <button class="mt-4 px-4 py-2 bg-red-700 text-white rounded hover:bg-red-800" 
+  @click="isOpen = false">
+    Fermer
+  </button>
 </div>
