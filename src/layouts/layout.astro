@@ -26,7 +26,7 @@ import Footer from './footer.astro';
       }
       body {
         background: linear-gradient(to bottom, #251e23, #121012);
-        @apply text-text font-body;
+        @apply text-text font-body min-h-screen flex-1;
       }
       h1, h2, h3, h4 {
         text-wrap: balance;
@@ -66,6 +66,9 @@ import Footer from './footer.astro';
           scrollbar-color: var(--primary-color) var(--secondary-color);
         }
       }
+      @view-transition {
+        navigation: auto; /* enabled! */
+      }
     </style>
     <link rel="icon" type="image/png" href="logoesportify.png" />
     <meta name="generator" content={Astro.generator} />
@@ -85,9 +88,11 @@ import Footer from './footer.astro';
     <!-- Configure htmx pour autoriser les requêtes vers des domaines externes + Transition pendant les swaps  -->
     <meta name="htmx-config" content='{"selfRequestsOnly":false,"globalViewTransitions":true}' />
   </head>
-  <body>
+  <body class="min-h-screen flex flex-col">
+    <main class="flex-1">
     <Header />
     <slot /> <!-- Zone HTML à l'intérieur du composant, où le contenu spécifique de chaque page sera inséré -->
+    </main>
     <Footer />
   </body>
 </html>
