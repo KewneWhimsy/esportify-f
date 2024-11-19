@@ -1,0 +1,17 @@
+<header class="bg-[#1f191d] p-4" x-data="{ open: false }">
+  <nav class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+    <a href="/index.html" class="flex items-center">
+      <img src="/logozoomzoom.png" alt="Logo Esportify" class="h-20 w-auto" />
+    </a>
+    <button @click="open = !open" class="md:hidden text-2xl my-3">
+      ☰
+    </button>
+    <div :class="{ 'hidden': !open, 'block': open }" class="md:flex space-x-4 font-bold">
+      <ul class="flex flex-col items-center md:flex-row gap-3">
+        <li><a href="#" class="p-3 transition-colors duration-300 hover:text-red-600">Événements</a></li>
+        <li><a href="#" class="p-3 transition-colors duration-300 hover:text-red-600">Connexion</a></li>
+        <li><a href="#" class="p-3 transition-colors duration-300 hover:text-red-600">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>

@@ -5,6 +5,7 @@ interface Props {
 }
 
 const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation du composant.
+import Header from '../layouts/header.astro';
 ---
 
 <!doctype html>
@@ -33,7 +34,7 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
         }
       }
       body {
-        background: linear-gradient(to bottom, #1f191d, #121012);
+        background: linear-gradient(to bottom, #251e23, #121012);
         @apply text-text font-body;
       }
       #events-container {
@@ -97,6 +98,7 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
     <meta name="htmx-config" content='{"selfRequestsOnly":false,"globalViewTransitions":true}' />
   </head>
   <body>
+    <Header />
     <slot /> <!-- Zone HTML à l'intérieur du composant, où le contenu spécifique de chaque page sera inséré -->
   </body>
 </html>
