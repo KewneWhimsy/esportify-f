@@ -6,6 +6,7 @@ interface Props {
 
 const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation du composant.
 import Header from '../layouts/header.astro';
+import Footer from './footer.astro';
 ---
 
 <!doctype html>
@@ -23,22 +24,9 @@ import Header from '../layouts/header.astro';
         --primary-color: #d00000a6;
         --secondary-color: #1F191D;
       }
-      @tailwind utilities;
-      @layer utilities {
-        .truncate-2-lines {
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-      }
       body {
         background: linear-gradient(to bottom, #251e23, #121012);
         @apply text-text font-body;
-      }
-      #events-container {
-        @apply flex gap-4 overflow-x-auto;
       }
       h1, h2, h3, h4 {
         text-wrap: balance;
@@ -100,5 +88,6 @@ import Header from '../layouts/header.astro';
   <body>
     <Header />
     <slot /> <!-- Zone HTML à l'intérieur du composant, où le contenu spécifique de chaque page sera inséré -->
+    <Footer />
   </body>
 </html>
