@@ -1,25 +1,28 @@
 ---
+// Définit une interface TypeScript pour les propriétés du composant.
 interface Props {
-  // Définit une interface TypeScript pour les propriétés du composant.
   title: string; //  Spécifie que la propriété title doit être une chaîne de caractères.
 }
 
 const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation du composant.
 import Header from '../layouts/header.astro';
 import Footer from './footer.astro';
+import '../fonts/fonts.css';
 ---
 
 <!doctype html>
 <html lang="fr">
   <head>
-    <meta charset="UTF-8" />
     <!-- Encodage des caractères pour le document -->
-    <meta name="description" content="Esportify" />
+    <meta charset="UTF-8" />
     <!-- Fournit une description du site pour les moteurs de recherche -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Esportify" />
     <!-- adapte la largeur de la page à celle de l'écran, force le zoom initial à 100% -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Styles globaux, initialisation supplémentaire à l'initialisation faite par tailwind --> 
     <style>
-      /* Styles globaux, initialisation supplémentaire à l'initialisation faite par tailwind */
+
       :root {
         --primary-color: #d00000a6;
         --secondary-color: #1F191D;
@@ -31,34 +34,30 @@ import Footer from './footer.astro';
       h1, h2, h3, h4 {
         text-wrap: balance;
       }
+      /* personalisation de la scrollbar */
       ::-webkit-scrollbar {
         height: 1rem;
         /* height of horizontal scrollbar */
         width: 1rem;
         /* width of vertical scrollbar */
       }
-
       /* Track */
       ::-webkit-scrollbar-track {
         background: var(--primary-color);
       }
-
       /* Handle */
       ::-webkit-scrollbar-thumb {
         background: var(--primary-color);
       }
-
       /* Scrollbar corner */
       ::-webkit-scrollbar-corner {
         background: var(--primary-color);
       }
-
       /* GOOGLE CHROME */
       * {
         scrollbar-width: auto;
         scrollbar-color: var(--primary-color) var(--secondary-color);
       }
-
       /* Browsers without `::-webkit-scrollbar-*` support */
       @supports (not selector(::-webkit-scrollbar)) {
         * {
@@ -66,19 +65,28 @@ import Footer from './footer.astro';
           scrollbar-color: var(--primary-color) var(--secondary-color);
         }
       }
+
+      /* API view transition CSS */
       @view-transition {
         navigation: auto; /* enabled! */
       }
     </style>
+
+    <!-- îcone de l'onglet du navigateur et google -->
     <link rel="icon" type="image/png" href="logoesportify.png" />
+
+     <!-- Indique le générateur du site (Astro) -->
     <meta name="generator" content={Astro.generator} />
-    <!-- Indique le générateur du site (Astro) -->
-    <title>{title}</title> <!-- Définit le titre de la page par une valeur à lui donner quand on utilise ce composant (Props)-->
+
+    <!-- Définit le titre de la page par une valeur à lui donner quand on utilise ce composant (Props)-->
+    <title>{title}</title>
+    
     <!-- Charge Alpine.js pour l'interactivité Client -->
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"
     ></script>
+
     <!-- Charge htmx pour l'interactivité Serveur -->
     <script
       defer
@@ -87,12 +95,17 @@ import Footer from './footer.astro';
       crossorigin="anonymous"></script>
     <!-- Configure htmx pour autoriser les requêtes vers des domaines externes + Transition pendant les swaps  -->
     <meta name="htmx-config" content='{"selfRequestsOnly":false,"globalViewTransitions":true}' />
+
   </head>
+
   <body class="min-h-screen flex flex-col">
     <main class="flex-1">
     <Header />
+
     <slot /> <!-- Zone HTML à l'intérieur du composant, où le contenu spécifique de chaque page sera inséré -->
+
     </main>
     <Footer />
   </body>
+
 </html>
