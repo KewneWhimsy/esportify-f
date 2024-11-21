@@ -27,9 +27,9 @@ export default {
     'font-heading', 'text-heading', 'border', 
     'p-6', 'rounded-lg', 'shadow-lg', 'h-full', 'w-full', 'text-sm', 
     'text-gray-400', 'text-lg', 'leading-tight', 'mb-2', 
-    'justify-between', 'border-[#E5E7EB]', 'p-4', 
+    'justify-between', 'border-[#E5E7EB]', 'p-4', 'bg-red-800', 
     'w-64', 'shadow-md', 'transition-transform', 'scale-105', 
-    'cursor-pointer', 'flex-shrink-0', 'gap-0.5', 'hidden',
+    'cursor-pointer', 'flex-shrink-0', 'gap-0.5', 'hidden', 'bg-blue-500', 'rounded', 'bg-opacity-80',
   ],
   plugins: [],
 }
