@@ -1,6 +1,12 @@
-<header class="bg-[#1f191d] p-4" x-data="{ open: false }">
+<header class="bg-[#1f191d] p-4" x-data="{ open: false, rolee: window.role }" x-init="
+    console.log('Initialisation du rôle:', rolee);
+    window.addEventListener('role-changed', (event) => {
+        console.log('Rôle mis à jour immédiatement:', event.detail.role);
+        rolee = event.detail.role;
+    });
+">
   <nav class="container mx-auto flex flex-col md:flex-row justify-between items-center">
-    <a href="index" class="flex items-center">
+    <a href="index.html" class="flex items-center">
       <img src="logo-header.png" alt="Logo Esportify" class="h-20 w-auto" />
     </a>
     <button @click="open = !open" class="md:hidden text-2xl mb-2 mt-4">
@@ -8,9 +14,31 @@
     </button>
     <div :class="{ 'hidden': !open, 'block': open }" class="md:flex space-x-4 font-bold">
       <ul class="flex flex-col items-center md:flex-row gap-3">
-        <li><a href="evenements.html" class="p-2 transition-colors duration-300 hover:text-red-600">Événements</a></li>
-        <li><a href="connexion.html" class="p-2 transition-colors duration-300 hover:text-red-600">Connexion</a></li>
-        <li><a href="#" class="p-2 transition-colors duration-300 hover:text-red-600">Contact</a></li>
+        <li>
+          <a href="evenements.html" class="p-2 transition-colors duration-300 hover:text-red-600">
+            Événements
+          </a>
+        </li>
+
+        <!-- Afficher Connexion si rôle est "visiteur" -->
+        <li x-show="rolee === 'visiteur'">
+          <a href="connexion.html" class="p-2 transition-colors duration-300 hover:text-red-600">
+            Connexion
+          </a>
+        </li>
+
+        <!-- Afficher Mon Esportify si rôle n'est pas "visiteur" -->
+        <li x-show="rolee !== 'visiteur'">
+          <a href="dashboard.html" class="p-2 transition-colors duration-300 hover:text-red-600">
+            Mon Esportify
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="p-2 transition-colors duration-300 hover:text-red-600">
+            Contact
+          </a>
+        </li>
       </ul>
     </div>
   </nav>

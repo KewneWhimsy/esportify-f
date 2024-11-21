@@ -86,7 +86,6 @@ import '../fonts/fonts.css';
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"
     ></script>
-
     <!-- Charge htmx pour l'interactivité Serveur -->
     <script
       defer
@@ -97,6 +96,29 @@ import '../fonts/fonts.css';
     <meta name="htmx-config" content='{"selfRequestsOnly":false,"globalViewTransitions":true}' />
 
   </head>
+
+ <script>
+    import { jwtDecode } from 'jwt-decode';
+    
+    // Récupérer le token depuis sessionStorage
+    const token = sessionStorage.getItem('jwt');
+    window.role = 'visiteur' as string; // Rôle par défaut
+    if (token) {
+        try {
+          const decoded = jwtDecode< MyJwtPayload>(token);
+            window.role = decoded.role;
+            console.log("Rôle utilisateur:", decoded.role);
+            // Émet un événement personnalisé
+            window.dispatchEvent(new CustomEvent('role-changed', { detail: { role: decoded.role } }));
+        } catch (error) {
+            console.error("Erreur lors du décodage du token:", error);
+        }
+    } else {
+        console.log("Aucun token trouvé, rôle par défaut:", window.role);
+        window.dispatchEvent(new CustomEvent('role-changed', { detail: { role: 'visiteur' } }));
+    }
+</script>
+
 
   <body class="min-h-screen flex flex-col">
     <main class="flex-1">

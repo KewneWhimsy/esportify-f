@@ -29,7 +29,7 @@ export default {
     'text-gray-400', 'text-lg', 'leading-tight', 'mb-2', 
     'justify-between', 'border-[#E5E7EB]', 'p-4', 
     'w-64', 'shadow-md', 'transition-transform', 'scale-105', 
-    'cursor-pointer', 'flex-shrink-0', 'gap-0.5',
+    'cursor-pointer', 'flex-shrink-0', 'gap-0.5', 'hidden',
   ],
   plugins: [],
 }

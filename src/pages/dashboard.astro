@@ -2,6 +2,164 @@
 import Layout from "../layouts/layout.astro";
 ---
 
-<Layout title="Esportify">
-  
+<Layout title="Dashboard">
+  <section x-data="{ rolee: window.role }"
+    x-init="
+      console.log('Initialisation du rôle:', rolee);
+      window.addEventListener('role-changed', (event) => {
+      console.log('Rôle mis à jour immédiatement:', event.detail.role);
+      rolee = event.detail.role;
+  });"
+  >
+    <h1 class="text-5xl p-4 font-hero text-heading mb-6 my-14">
+      Tableau de bord
+    </h1>
+
+    <!-- Vérification de connexion -->
+    <div x-show="rolee === 'visiteur'" class="hidden" id="not-connected">
+      <div
+        class="flex flex-col items-center justify-center h-full text-center mt-40"
+      >
+        <h2 class="text-2xl font-heading text-heading">
+          Vous n'êtes pas connecté
+        </h2>
+        <a
+          href="connexion.html"
+          class="mt-4 px-4 py-2 bg-red-700 text-white rounded hover:bg-red-800"
+          >Connexion</a
+        >
+      </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div
+      class="p-4 md-p-6"
+      id="dashboard-admin"
+      x-data="{ role: '{{ role }}' }"
+    >
+      <!-- Section Modération des Événements (visible uniquement pour Admin) -->
+      <div x-show="rolee === 'admin'">
+        <section class="mb-8">
+          <h2 class="text-xl font-semibold mb-4">Modération des événements</h2>
+          <div class="bg-[#161215] shadow rounded p-4">
+            <table class="min-w-full table-auto">
+              <thead>
+                <tr class="bg-[#4d2d45] text-left">
+                  <th class="px-4 py-2">Nom de l'événement</th>
+                  <th class="px-4 py-2">Statut</th>
+                  <th class="px-4 py-2">Actions</th>
+                </tr>
+              </thead>
+              <!-- à remplacer par tableau dynamique htmx -->
+              <tbody>
+                <tr class="border-b">
+                  <td class="px-4 py-2">Tournoi Rocket League</td>
+                  <td class="px-4 py-2 text-yellow-600">En attente</td>
+                  <td class="px-4 py-2">
+                    <button
+                      class="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+                      >Valider</button
+                    >
+                    <button
+                      class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
+                      >Refuser</button
+                    >
+                  </td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-4 py-2">LAN Fortnite</td>
+                  <td class="px-4 py-2 text-green-600">Validé</td>
+                  <td class="px-4 py-2">
+                    <button
+                      class="px-3 py-1 bg-orange-500 text-white rounded hover:bg-orange-600"
+                      >Suspendre</button
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- Dashboard -->
+      <div
+        class="p-4 md-p-6"
+        id="dashboard-admin"
+        x-data="{ role: window.role || 'visiteur' }"
+      >
+        <!-- Section Modération des Événements (visible uniquement pour Admin) à remplacer par éléments dynamiques htmx-->
+        <div x-show="role === 'admin'">
+          <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">
+              Modération des événements
+            </h2>
+            <div class="bg-[#161215] shadow rounded p-4">
+              <table class="min-w-full table-auto">
+                <thead>
+                  <tr class="bg-[#4d2d45] text-left">
+                    <th class="px-4 py-2">Nom de l'événement</th>
+                    <th class="px-4 py-2">Statut</th>
+                    <th class="px-4 py-2">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b">
+                    <td class="px-4 py-2">Tournoi Rocket League</td>
+                    <td class="px-4 py-2 text-yellow-600">En attente</td>
+                    <td class="px-4 py-2">
+                      <button
+                        class="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+                        >Valider</button
+                      >
+                      <button
+                        class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
+                        >Refuser</button
+                      >
+                    </td>
+                  </tr>
+                  <tr class="border-b">
+                    <td class="px-4 py-2">LAN Fortnite</td>
+                    <td class="px-4 py-2 text-green-600">Validé</td>
+                    <td class="px-4 py-2">
+                      <button
+                        class="px-3 py-1 bg-orange-500 text-white rounded hover:bg-orange-600"
+                        >Suspendre</button
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+
+        <!-- Section Gestion des Droits Utilisateurs (visible pour admin) -->
+        <div x-show="role === 'admin'">
+          <section class="mb-8">éléments dynamique à insérer</section>
+        </div>
+      </div>
+
+      <!-- Section Statistiques (visible pour tous les utilisateurs autre que visiteur) -->
+      <section x-show="role === 'orga'|| role === 'admin'">
+        <h2 class="text-xl font-semibold mb-4">
+          Statistiques de la plateforme
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-[#4d2d45] shadow rounded p-4 text-center">
+            <h3 class="text-2xl font-bold">125</h3>
+            <p class="">Événements créés</p>
+          </div>
+          <div class="bg-[#4d2d45] shadow rounded p-4 text-center">
+            <h3 class="text-2xl font-bold">350</h3>
+            <p class="">Participants</p>
+          </div>
+          <div class="bg-[#4d2d45] shadow rounded p-4 text-center">
+            <h3 class="text-2xl font-bold">24</h3>
+            <p class="">Événements en attente</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
 </Layout>
