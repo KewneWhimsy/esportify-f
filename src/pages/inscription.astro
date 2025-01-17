@@ -18,7 +18,7 @@ import Layout from "../layouts/layout.astro";
                 const data = await response.json();
                 if (response.ok) {
                     alert('Inscription réussie !');
-                    window.location.href = '/connexion.html'; // Redirection
+                    window.location.href = './connexion.html'; // Redirection
                 } else {
                     this.error = data.error || 'Erreur inconnue';
                 }
