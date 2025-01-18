@@ -5,9 +5,9 @@ interface Props {
 }
 
 const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation du composant.
-import Header from '../layouts/header.astro';
-import Footer from './footer.astro';
-import '../fonts/fonts.css';
+import Header from "../layouts/header.astro";
+import Footer from "./footer.astro";
+import "../fonts/fonts.css";
 ---
 
 <!doctype html>
@@ -19,19 +19,21 @@ import '../fonts/fonts.css';
     <meta name="description" content="Esportify" />
     <!-- adapte la largeur de la page à celle de l'écran, force le zoom initial à 100% -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- Styles globaux, initialisation supplémentaire à l'initialisation faite par tailwind --> 
-    <style>
 
+    <!-- Styles globaux, initialisation supplémentaire à l'initialisation faite par tailwind -->
+    <style>
       :root {
         --primary-color: #d00000a6;
-        --secondary-color: #1F191D;
+        --secondary-color: #1f191d;
       }
       body {
         background: linear-gradient(to bottom, #251e23, #121012);
         @apply text-text font-body min-h-screen flex-1;
       }
-      h1, h2, h3, h4 {
+      h1,
+      h2,
+      h3,
+      h4 {
         text-wrap: balance;
       }
       /* personalisation de la scrollbar */
@@ -75,12 +77,12 @@ import '../fonts/fonts.css';
     <!-- îcone de l'onglet du navigateur et google -->
     <link rel="icon" type="image/png" href="logoesportify.png" />
 
-     <!-- Indique le générateur du site (Astro) -->
+    <!-- Indique le générateur du site (Astro) -->
     <meta name="generator" content={Astro.generator} />
 
     <!-- Définit le titre de la page par une valeur à lui donner quand on utilise ce composant (Props)-->
     <title>{title}</title>
-    
+
     <!-- Charge Alpine.js pour l'interactivité Client -->
     <script
       defer
@@ -93,50 +95,66 @@ import '../fonts/fonts.css';
       integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ"
       crossorigin="anonymous"></script>
     <!-- Configure htmx pour autoriser les requêtes vers des domaines externes + Transition pendant les swaps  -->
-    <meta name="htmx-config" content='{"selfRequestsOnly":false,"globalViewTransitions":true}' />
+    <meta
+      name="htmx-config"
+      content='{"selfRequestsOnly":false,"globalViewTransitions":true}'
+    />
 
-  </head>
+    <script>
+      import { jwtDecode } from "jwt-decode";
 
- <script>
-    import { jwtDecode } from 'jwt-decode';
-    
-    // Récupérer le token depuis sessionStorage
-    const token = sessionStorage.getItem('jwt');
-    window.role = 'visiteur' as string; // Rôle par défaut
-    if (token) {
+      // Récupérer le token depuis sessionStorage
+      const token = sessionStorage.getItem("jwt");
+      window.role = "visiteur" as string; // Rôle par défaut
+      if (token) {
         try {
-          const decoded = jwtDecode< MyJwtPayload>(token);
-            window.role = decoded.role;
-            console.log("Rôle utilisateur:", decoded.role);
-            // Émet un événement personnalisé
-            window.dispatchEvent(new CustomEvent('role-changed', { detail: { role: decoded.role } }));
+          const decoded = jwtDecode<MyJwtPayload>(token);
+          window.role = decoded.role;
+          console.log("Rôle utilisateur:", decoded.role);
+          // Émet un événement personnalisé
+          window.dispatchEvent(
+            new CustomEvent("role-changed", { detail: { role: decoded.role } })
+          );
         } catch (error) {
-            console.error("Erreur lors du décodage du token:", error);
+          console.error("Erreur lors du décodage du token:", error);
         }
-    } else {
+      } else {
         console.log("Aucun token trouvé, rôle par défaut:", window.role);
-        window.dispatchEvent(new CustomEvent('role-changed', { detail: { role: 'visiteur' } }));
-    }
-</script>
-<script>
-  document.body.addEventListener('htmx:configRequest', function(event) {
-  const customEvent = event as CustomEvent;
-  const token = sessionStorage.getItem('jwt');
-  if (token) {
-    customEvent.detail.xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-  }
-});
+        window.dispatchEvent(
+          new CustomEvent("role-changed", { detail: { role: "visiteur" } })
+        );
+      }
+    </script>
+    <script>
+      document.body.addEventListener("htmx:configRequest", function (event) {
+        // Récupère l'objet de l'événement
+        const customEvent = event as CustomEvent;
 
-</script>
+        // Vérifie si xhr est disponible dans l'événement
+        const xhr = customEvent?.detail?.xhr;
+
+        // Si xhr est défini, ajoute l'en-tête
+        if (xhr) {
+          const token = sessionStorage.getItem("jwt");
+
+          if (token) {
+            // Ajoute l'en-tête Authorization avec le token
+            xhr.setRequestHeader("Authorization", "Bearer " + token);
+          }
+        } else {
+          console.error("XHR n'est pas défini");
+        }
+      });
+    </script>
+  </head>
 
   <body class="min-h-screen flex flex-col">
     <main class="flex-1">
-    <Header />
+      <Header />
 
-    <slot /> <!-- Zone HTML à l'intérieur du composant, où le contenu spécifique de chaque page sera inséré -->
-
+      <slot />
+      <!-- Zone HTML à l'intérieur du composant, où le contenu spécifique de chaque page sera inséré -->
     </main>
     <Footer />
   </body>
-
 </html>
