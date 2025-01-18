@@ -126,7 +126,7 @@ import "../fonts/fonts.css";
       }
     </script>
     <script>
-      document.body.addEventListener("htmx:configRequest", function (event) {
+      document.body.addEventListener("htmx:beforeRequest", function (event) {
         // Récupère l'objet de l'événement
         const customEvent = event as CustomEvent;
 
