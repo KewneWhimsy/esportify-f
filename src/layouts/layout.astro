@@ -118,7 +118,16 @@ import '../fonts/fonts.css';
         window.dispatchEvent(new CustomEvent('role-changed', { detail: { role: 'visiteur' } }));
     }
 </script>
+<script>
+  document.body.addEventListener('htmx:configRequest', function(event) {
+  const customEvent = event as CustomEvent;
+  const token = sessionStorage.getItem('jwt');
+  if (token) {
+    customEvent.detail.xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+  }
+});
 
+</script>
 
   <body class="min-h-screen flex flex-col">
     <main class="flex-1">
