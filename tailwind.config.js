@@ -29,8 +29,8 @@ export default {
     'text-gray-400', 'text-lg', 'leading-tight', 'mb-2', 
     'justify-between', 'border-[#E5E7EB]', 'p-4', 'bg-red-800', 
     'w-64', 'shadow-md', 'transition-transform', 'scale-105', 
-    'cursor-pointer', 'flex-shrink-0', 'gap-0.5', 'hidden', 'bg-blue-500', 'bg-blue-600', 'rounded', 'bg-opacity-80',
-     'bg-red-600', 'bg-red-700', 'mt-8', 'mt-10', 'mt-12',
+    'cursor-pointer', 'flex-shrink-0', 'gap-0.5', 'hidden', 'bg-blue-500', 'hover:bg-blue-600', 'rounded', 'bg-opacity-80',
+     'bg-red-600', 'hover:bg-red-700', 'mt-10',
   ],
   plugins: [],
 }
