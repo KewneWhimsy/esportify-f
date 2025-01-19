@@ -1,0 +1,16 @@
+name: Disable Default Workflow
+
+on:
+  push:
+    branches-ignore:
+      - '**'
+  pull_request:
+    branches-ignore:
+      - '**'
+
+jobs:
+  no-op:
+    runs-on: ubuntu-latest
+    steps:
+      - name: No operation
+        run: echo "This workflow does nothing."
