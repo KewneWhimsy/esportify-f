@@ -30,7 +30,7 @@ export default {
     'justify-between', 'border-[#E5E7EB]', 'p-4', 'bg-red-800', 
     'w-64', 'shadow-md', 'transition-transform', 'scale-105', 
     'cursor-pointer', 'flex-shrink-0', 'gap-0.5', 'hidden', 'bg-blue-500', 'hover:bg-blue-600', 'rounded', 'bg-opacity-80',
-     'bg-red-600', 'hover:bg-red-700', 'mt-10', 'border-gray-300',
+     'bg-red-600', 'hover:bg-red-700', 'mt-10', 'border-gray-300', 'ml-auto',
   ],
   plugins: [],
 }
