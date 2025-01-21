@@ -1,17 +1,17 @@
 ---
 import { apiUrl } from "../lib/constants";
 export interface Props {
-  apiEndpoint: String;
+  apiEndPoint: String;
 }
 
-const { apiEndpoint } = Astro.props;
+const { apiEndPoint } = Astro.props;
 ---
 
-<section x-data="{ isOpen: false }" class="mb-12">
+<section class="mb-12">
   <div class="flex flex-col space-y-4 ml-4">
     <div class="flex gap-3 my-2">
       <button
-        hx-get={`${apiUrl}/api/${apiEndpoint}?sort=players_count`}
+        hx-get={`${apiUrl}/api/${apiEndPoint}?sort=players_count`}
         hx-target="#events-container"
         hx-swap="innerHTML"
         hx-on-error="this.innerHTML = 'Erreur lors du tri des événements';"
@@ -20,7 +20,7 @@ const { apiEndpoint } = Astro.props;
         <p class="text-sm">Trier par joueurs</p>
       </button>
       <button
-        hx-get={`${apiUrl}/api/${apiEndpoint}?sort=start_datetime`}
+        hx-get={`${apiUrl}/api/${apiEndPoint}?sort=start_datetime`}
         hx-target="#events-container"
         hx-swap="innerHTML"
         hx-on-error="this.innerHTML = 'Erreur lors du tri des événements';"
@@ -29,7 +29,7 @@ const { apiEndpoint } = Astro.props;
         <p class="text-sm">Trier par date</p>
       </button>
       <button
-        hx-get={`${apiUrl}/api/${apiEndpoint}?sort=organisateur`}
+        hx-get={`${apiUrl}/api/${apiEndPoint}?sort=organisateur`}
         hx-target="#events-container"
         hx-swap="innerHTML"
         hx-on-error="this.innerHTML = 'Erreur lors du tri des événements';"
@@ -55,7 +55,7 @@ const { apiEndpoint } = Astro.props;
 
       <!-- Bloc pour charger les événements -->
       <div
-        hx-get={`${apiUrl}/api/${apiEndpoint}`}
+        hx-get={`${apiUrl}/api/${apiEndPoint}`}
         hx-target="#events-container"
         hx-trigger="load"
         hx-swap="innerHTML"
@@ -70,29 +70,5 @@ const { apiEndpoint } = Astro.props;
       </div>
     </div>
   </div>
-  <!-- Zone de popup avec HTMX et Alpine.js -->
-  <div
-    x-show="isOpen"
-    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-    x-transition:opacity
-    @click.self="isOpen = false"
-  >
-    <div
-      x-show="isOpen"
-      id="popup-content"
-      class="rounded-lg w-full max-w-2xl"
-      style="background: linear-gradient(to bottom, #1f191d, #121012);"
-      x-transition:enter="transition ease-out duration-300"
-      x-transition:enter-start="opacity-0 scale-90"
-      x-transition:enter-end="opacity-100 scale-100"
-      x-transition:leave="transition ease-in duration-200"
-      x-transition:leave-start="opacity-100 scale-100"
-      x-transition:leave-end="opacity-0 scale-90"
-      hx-target="this"
-      hx-swap="innerHTML"
-    >
-      <!-- Contenu de la popup sera chargé ici via HTMX -->
-      <p>Chargement...</p>
-    </div>
-  </div>
+  
 </section>

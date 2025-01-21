@@ -1,0 +1,28 @@
+<!-- Zone d'action du popup avec Alpine.js -->
+<section x-data="{ isOpen: false }">
+  <slot />
+
+  <!-- popup avec HTMX et Alpine.js -->
+  <div
+    x-show="isOpen"
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    x-transition:opacity
+    @click.self="isOpen = false"
+  >
+    <div
+      x-show="isOpen"
+      id="popup-content"
+      class="rounded-lg w-full max-w-2xl"
+      style="background: linear-gradient(to bottom, #1f191d, #121012);"
+      x-transition:enter="transition ease-out duration-300"
+      x-transition:enter-start="opacity-0 scale-90"
+      x-transition:enter-end="opacity-100 scale-100"
+      x-transition:leave="transition ease-in duration-200"
+      x-transition:leave-start="opacity-100 scale-100"
+      x-transition:leave-end="opacity-0 scale-90"
+      hx-target="this"
+      hx-swap="innerHTML"
+    >
+    </div>
+  </div>
+</section>

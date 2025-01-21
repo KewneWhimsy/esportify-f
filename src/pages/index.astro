@@ -2,10 +2,15 @@
 import Layout from "../layouts/layout.astro";
 import HeroSlide from "../components/heroslide.astro";
 import EventTimeline from "../components/eventtimeline.astro";
+import PopupEvent from "../components/popupevent.astro";
 ---
 
 <Layout title="Esportify">
+
+  <!-- Hero slider en défilement automatique -->
   <HeroSlide />
+
+  <!-- Présentation -->
   <div class="text-center mt-6 mb-12 mx-auto max-w-[900px]">
     <h1 class="text-3xl text-heading font-hero">Joueurs, rassemblez-vous !</h1>
     <p class="my-3 mx-3 text-lg">
@@ -17,8 +22,12 @@ import EventTimeline from "../components/eventtimeline.astro";
       pour partager votre passion.
     </p>
   </div>
+
+  <!-- Bandeau horizontale des événements -->
   <section class="max-w-[900px] mx-auto">
-    <EventTimeline apiEndpoint='events' />
+    <PopupEvent>
+      <EventTimeline apiEndPoint="events" />
+    </PopupEvent>
   </section>
-  
+
 </Layout>
