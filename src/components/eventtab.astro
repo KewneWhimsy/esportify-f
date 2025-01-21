@@ -1,0 +1,88 @@
+---
+import { apiUrl } from "../lib/constants";
+---
+
+<!-- Tableau affichant tout les événements -->
+<section x-data="{ isOpen: false }" class="my-12">
+    
+    <!-- Boutons de tri -->
+    <div class="flex flex-col items-center space-y-4">
+      <div class="flex gap-3 my-2">
+        <button
+          hx-get={`${apiUrl}/api/events?sort=players_count`}
+          hx-target="#events-container"
+          hx-swap="innerHTML"
+          hx-on-error="this.innerHTML = 'Erreur lors du tri des événements';"
+          class="px-2 py-1 bg-red-700 rounded hover:bg-red-800"
+        >
+          <p class="text-sm">Trier par joueurs</p>
+        </button>
+        <button
+          hx-get={`${apiUrl}/api/events?sort=start_datetime`}
+          hx-target="#events-container"
+          hx-swap="innerHTML"
+          hx-on-error="this.innerHTML = 'Erreur lors du tri des événements';"
+          class="px-2 py-1 bg-red-700 rounded hover:bg-red-800"
+        >
+          <p class="text-sm">Trier par date</p>
+        </button>
+        <button
+          hx-get={`${apiUrl}/api/events?sort=organisateur`}
+          hx-target="#events-container"
+          hx-swap="innerHTML"
+          hx-on-error="this.innerHTML = 'Erreur lors du tri des événements';"
+          class="px-2 py-1 bg-red-700 rounded hover:bg-red-800"
+        >
+          <p class="text-sm">Trier par organisateur</p>
+        </button>
+      </div>
+    </div>
+
+    <!-- Conteneur des événements -->
+    <div class="flex justify-center flex-1">
+      <div class="w-full max-w-6xl p-6">
+        <div
+          id="events-container"
+          class="grid justify-items-center grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 p-6 bg-[#161215] rounded-lg"
+        >
+          <!-- Les événements seront chargés dynamiquement ici via HTMX -->
+           <p class="flex text-center">Chargement des événements...<br/>(Peut prendre jusqu'à 50s si le serveur est en veille)</p>
+        </div>
+
+        <!-- Bloc pour charger les événements -->
+        <div
+          hx-get={`${apiUrl}/api/events`}
+          hx-target="#events-container"
+          hx-trigger="load"
+          hx-swap="innerHTML"
+          hx-on-error="this.innerHTML = 'Erreur lors du chargement des événements';"
+        >
+          <!-- Requête GET déclenchée au chargement -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Zone de popup avec HTMX et Alpine.js -->
+    <div
+      x-show="isOpen"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      x-transition:opacity
+      @click.self="isOpen = false"
+    >
+      <div
+        x-show="isOpen"
+        id="popup-content"
+        class="rounded-lg w-full max-w-2xl"
+        style="background: linear-gradient(to bottom, #1f191d, #121012);"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 scale-90"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-90"
+        hx-target="this"
+        hx-swap="innerHTML"
+      >
+      </div>
+    </div>
+  </section>

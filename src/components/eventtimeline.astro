@@ -1,12 +1,17 @@
 ---
 import { apiUrl } from "../lib/constants";
+export interface Props {
+  apiEndpoint: String;
+}
+
+const { apiEndpoint } = Astro.props;
 ---
 
-<section x-data="{ isOpen: false }" class="my-12">
-  <div class="flex flex-col items-center space-y-4">
+<section x-data="{ isOpen: false }" class="mb-12">
+  <div class="flex flex-col space-y-4 ml-4">
     <div class="flex gap-3 my-2">
       <button
-        hx-get={`${apiUrl}/api/events?sort=players_count`}
+        hx-get={`${apiUrl}/api/${apiEndpoint}?sort=players_count`}
         hx-target="#events-container"
         hx-swap="innerHTML"
         hx-on-error="this.innerHTML = 'Erreur lors du tri des événements';"
@@ -15,7 +20,7 @@ import { apiUrl } from "../lib/constants";
         <p class="text-sm">Trier par joueurs</p>
       </button>
       <button
-        hx-get={`${apiUrl}/api/events?sort=start_datetime`}
+        hx-get={`${apiUrl}/api/${apiEndpoint}?sort=start_datetime`}
         hx-target="#events-container"
         hx-swap="innerHTML"
         hx-on-error="this.innerHTML = 'Erreur lors du tri des événements';"
@@ -24,7 +29,7 @@ import { apiUrl } from "../lib/constants";
         <p class="text-sm">Trier par date</p>
       </button>
       <button
-        hx-get={`${apiUrl}/api/events?sort=organisateur`}
+        hx-get={`${apiUrl}/api/${apiEndpoint}?sort=organisateur`}
         hx-target="#events-container"
         hx-swap="innerHTML"
         hx-on-error="this.innerHTML = 'Erreur lors du tri des événements';"
@@ -35,21 +40,22 @@ import { apiUrl } from "../lib/constants";
     </div>
   </div>
   <div class="flex justify-center">
-    <div class="w-full max-w-4xl overflow-x-auto rounded-lg shadow-lg p-4">
+    <div class="w-full max-w-4xl overflow-x-auto rounded-lg shadow-lg m-4">
       <!-- Bande horizontale des événements -->
       <div
         id="events-container"
-        class="flex space-x-4 p-4 bg-[#161215] rounded-lg"
+        class="flex space-x-4 p-4 bg-[#161215] overflow-x-scroll rounded-lg"
       >
         <!-- Les événements seront chargés dynamiquement ici via HTMX -->
         <p class="p-4 rounded-lg w-full text-center">
           Chargement des événements...
+          <br/>(Peut prendre jusqu'à 50s si le serveur est en veille)
         </p>
       </div>
 
       <!-- Bloc pour charger les événements -->
       <div
-        hx-get={`${apiUrl}/api/events`}
+        hx-get={`${apiUrl}/api/${apiEndpoint}`}
         hx-target="#events-container"
         hx-trigger="load"
         hx-swap="innerHTML"

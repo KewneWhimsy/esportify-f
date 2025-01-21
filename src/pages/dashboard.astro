@@ -1,9 +1,13 @@
 ---
 import Layout from "../layouts/layout.astro";
+import EventTimeline from "../components/eventtimeline.astro";
+import Eventtab from "../components/eventtab.astro";
 ---
 
 <Layout title="Dashboard">
-  <section x-data="{ rolee: window.role }"
+  <section
+    class="max-w-[900px] mx-auto"
+    x-data="{ rolee: window.role }"
     x-init="
       console.log('Initialisation du rôle:', rolee);
       window.addEventListener('role-changed', (event) => {
@@ -11,12 +15,11 @@ import Layout from "../layouts/layout.astro";
       rolee = event.detail.role;
   });"
   >
-    <h1 class="text-5xl p-4 font-hero text-heading mb-6 my-14">
-      Tableau de bord
-    </h1>
-
     <!-- Vérification de connexion -->
-    <div x-show="rolee === 'visiteur'">
+    <section
+      x-show="rolee === 'visiteur'"
+      :class="{ 'hidden': rolee !== 'visiteur'}"
+    >
       <div
         class="flex flex-col items-center justify-center h-full text-center mt-40"
       >
@@ -29,49 +32,74 @@ import Layout from "../layouts/layout.astro";
           >Connexion</a
         >
       </div>
-    </div>
+    </section>
 
     <!-- Dashboard -->
-    <div
-      class="p-4 md-p-6"
-      id="dashboard-admin"
-      x-data="{ role: '{{ rolee }}' }"
+    <section
+      style="display:none"
+      x-show="rolee !== 'visiteur'"
+      :class="{ 'hidden': rolee === 'visiteur'}"
     >
-      <!-- Section Modération des Événements (visible uniquement pour Admin) -->
-      <div x-show="rolee === 'admin'">
-        <section class="mb-8">
-          <h2 class="text-xl font-semibold mb-4">Modération des événements</h2>
+      
+      <h1 class="text-5xl px-3 font-hero text-heading mb-6 my-14">
+        Tableau de bord
+      </h1>
+      <h2 class="text-xl font-semibold mt-20 mb-2 ml-4">Mes événements favoris</h2>
+      <EventTimeline apiEndpoint="favorites" />
+
+    </section>
+
+    <!-- Dashboard orga+ -->
+    <section
+      x-show="rolee === 'orga' || rolee === 'admin'"
+      :class="{ 'hidden': rolee === 'visiteur' || rolee === 'joueur'}"
+    >
+      <div class="flex flex-col items-center justify-center h-full text-center">
+        <h2 class="font-heading text-heading">créer un événement</h2>
+      </div>
+    </section>
+
+    <!-- Dashboard admin-->
+    <section
+      x-show="rolee === 'admin'"
+      :class="{ 'hidden': rolee === 'joueur' || rolee === 'visiteur' || rolee === 'orga' }"
+    >
+      <!-- Conteneur pour aligner les tableaux -->
+      <div class="grid gap-8">
+        <!-- Section Gestion des Événements -->
+        <section>
+          <h2 class="text-xl font-semibold mb-4 ml-4">Modération événements</h2>
           <div class="bg-[#161215] shadow rounded p-4">
             <table class="min-w-full table-auto">
               <thead>
                 <tr class="bg-[#4d2d45] text-left">
-                  <th class="px-4 py-2">Nom de l'événement</th>
-                  <th class="px-4 py-2">Statut</th>
-                  <th class="px-4 py-2">Actions</th>
+                  <!-- Fixer des largeurs pour aligner avec l'autre tableau -->
+                  <th class="px-4 py-3 w-1/3">Nom de l'événement</th>
+                  <th class="px-4 py-3 w-1/4">Statut</th>
+                  <th class="px-4 py-3 w-1/3">Actions</th>
                 </tr>
               </thead>
-              <!-- à remplacer par tableau dynamique htmx -->
-              <tbody>
+              <tbody id="moderevent">
                 <tr class="border-b">
-                  <td class="px-4 py-2">Tournoi Rocket League</td>
-                  <td class="px-4 py-2 text-yellow-600">En attente</td>
-                  <td class="px-4 py-2">
+                  <td class="px-4 py-3">Tournoi Rocket League</td>
+                  <td class="px-4 py-3 text-yellow-600">En attente</td>
+                  <td class="px-4 py-3 flex flex-wrap gap-2">
                     <button
-                      class="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+                      class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
                       >Valider</button
                     >
                     <button
-                      class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
+                      class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
                       >Refuser</button
                     >
                   </td>
                 </tr>
                 <tr class="border-b">
-                  <td class="px-4 py-2">LAN Fortnite</td>
-                  <td class="px-4 py-2 text-green-600">Validé</td>
-                  <td class="px-4 py-2">
+                  <td class="px-4 py-3">LAN Fortnite</td>
+                  <td class="px-4 py-3 text-green-600">Validé</td>
+                  <td class="px-4 py-3">
                     <button
-                      class="px-3 py-1 bg-orange-500 text-white rounded hover:bg-orange-600"
+                      class="px-3 py-1 bg-orange-600 text-white rounded hover:bg-orange-700"
                       >Suspendre</button
                     >
                   </td>
@@ -80,86 +108,71 @@ import Layout from "../layouts/layout.astro";
             </table>
           </div>
         </section>
+
+        <!-- Section Gestion des Droits Utilisateurs -->
+        <section>
+          <h2 class="text-xl font-semibold mb-4 ml-4">Droits utilisateurs</h2>
+          <div class="bg-[#161215] shadow rounded p-4">
+            <table class="min-w-full table-auto">
+              <thead>
+                <tr class="bg-[#4d2d45] text-left">
+                  <!-- Fixer les mêmes largeurs pour l'alignement -->
+                  <th class="px-4 py-3 w-1/3">Utilisateur</th>
+                  <th class="px-4 py-3 w-1/4">Rôle</th>
+                  <th class="px-4 py-3 w-1/3">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b">
+                  <td class="px-4 py-3">Gigi</td>
+                  <td class="px-4 py-3 text-yellow-600">Organisateur</td>
+                  <td class="px-4 py-3 flex flex-wrap gap-2">
+                    <button
+                      class="px-3 py-1 bg-blue-900 text-white rounded hover:bg-yellow-600 transition-colors"
+                      >Promouvoir</button
+                    >
+                    <button
+                      class="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-700 transition-colors"
+                      >Rétrograder</button
+                    >
+                  </td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-4 py-3">GoMan</td>
+                  <td class="px-4 py-3 text-green-600">Admin</td>
+                  <td class="px-4 py-3">
+                    <button
+                      class="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-700 transition-colors"
+                      >Rétrograder</button
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
       </div>
+    </section>
 
-      <!-- Dashboard -->
-      <div
-        class="p-4 md-p-6"
-        id="dashboard-admin"
-        x-data="{ role: window.role || 'visiteur' }"
-      >
-        <!-- Section Modération des Événements (visible uniquement pour Admin) à remplacer par éléments dynamiques htmx-->
-        <div x-show="role === 'admin'">
-          <section class="mb-8">
-            <h2 class="text-xl font-semibold mb-4">
-              Modération des événements
-            </h2>
-            <div class="bg-[#161215] shadow rounded p-4">
-              <table class="min-w-full table-auto">
-                <thead>
-                  <tr class="bg-[#4d2d45] text-left">
-                    <th class="px-4 py-2">Nom de l'événement</th>
-                    <th class="px-4 py-2">Statut</th>
-                    <th class="px-4 py-2">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="border-b">
-                    <td class="px-4 py-2">Tournoi Rocket League</td>
-                    <td class="px-4 py-2 text-yellow-600">En attente</td>
-                    <td class="px-4 py-2">
-                      <button
-                        class="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-                        >Valider</button
-                      >
-                      <button
-                        class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
-                        >Refuser</button
-                      >
-                    </td>
-                  </tr>
-                  <tr class="border-b">
-                    <td class="px-4 py-2">LAN Fortnite</td>
-                    <td class="px-4 py-2 text-green-600">Validé</td>
-                    <td class="px-4 py-2">
-                      <button
-                        class="px-3 py-1 bg-orange-500 text-white rounded hover:bg-orange-600"
-                        >Suspendre</button
-                      >
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
+    <!-- Section Statistiques (visible pour orga et admin ) -->
+    <section class="p-4" x-show="rolee === 'orga'|| rolee === 'admin'"
+    :class="{ 'hidden': rolee === 'joueur' || rolee === 'visiteur' }"
+    >
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-[#4d2d45] shadow rounded p-4 text-center">
+          <h3 class="text-2xl font-bold">125</h3>
+          <p class="">Événements créés</p>
         </div>
-
-        <!-- Section Gestion des Droits Utilisateurs (visible pour admin) -->
-        <div x-show="role === 'admin'">
-          <section class="mb-8">éléments dynamique à insérer</section>
+        <div class="bg-[#4d2d45] shadow rounded p-4 text-center">
+          <h3 class="text-2xl font-bold">350</h3>
+          <p class="">Participants</p>
+        </div>
+        <div class="bg-[#4d2d45] shadow rounded p-4 text-center">
+          <h3 class="text-2xl font-bold">24</h3>
+          <p class="">Événements en attente</p>
         </div>
       </div>
+    </section>
 
-      <!-- Section Statistiques (visible pour tous les utilisateurs autre que visiteur) -->
-      <section x-show="role === 'orga'|| role === 'admin'">
-        <h2 class="text-xl font-semibold mb-4">
-          Statistiques de la plateforme
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="bg-[#4d2d45] shadow rounded p-4 text-center">
-            <h3 class="text-2xl font-bold">125</h3>
-            <p class="">Événements créés</p>
-          </div>
-          <div class="bg-[#4d2d45] shadow rounded p-4 text-center">
-            <h3 class="text-2xl font-bold">350</h3>
-            <p class="">Participants</p>
-          </div>
-          <div class="bg-[#4d2d45] shadow rounded p-4 text-center">
-            <h3 class="text-2xl font-bold">24</h3>
-            <p class="">Événements en attente</p>
-          </div>
-        </div>
-      </section>
-    </div>
   </section>
 </Layout>
