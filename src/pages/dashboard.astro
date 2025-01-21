@@ -3,6 +3,7 @@ import Layout from "../layouts/layout.astro";
 import EventTimeline from "../components/eventtimeline.astro";
 import Eventtab from "../components/eventtab.astro";
 import PopupEvent from "../components/popupevent.astro";
+import Createevent from "../components/createevent.astro";
 ---
 
 <Layout title="Dashboard">
@@ -56,11 +57,9 @@ import PopupEvent from "../components/popupevent.astro";
         x-show="rolee === 'orga' || rolee === 'admin'"
         :class="{ 'hidden': rolee === 'visiteur' || rolee === 'joueur'}"
       >
-        <div
-          class="flex flex-col items-center justify-center h-full text-center"
-        >
-          <h2 class="font-heading text-heading">créer un événement</h2>
-        </div>
+        
+        <Createevent />
+
       </section>
 
       <!-- Dashboard admin-->
