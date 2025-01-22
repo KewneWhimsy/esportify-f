@@ -1,10 +1,4 @@
-<header class="bg-[#1f191d] p-4" x-data="{ open: false, rolee: window.role }" x-init="
-    console.log('Initialisation du rôle:', rolee);
-    window.addEventListener('role-changed', (event) => {
-        console.log('Rôle mis à jour immédiatement:', event.detail.role);
-        rolee = event.detail.role;
-    });
-">
+<header class="bg-[#1f191d] p-4" >
   <nav class="container mx-auto flex flex-col md:flex-row justify-between items-center">
     <a href="index.html" class="flex items-center">
       <img src="logo-header.png" alt="Logo Esportify" class="h-20 w-auto" />
@@ -13,23 +7,23 @@
       ☰
     </button>
     <div :class="{ 'hidden': !open, 'block': open }" class="md:flex space-x-4 font-bold">
-      <ul class="flex flex-col items-center md:flex-row gap-3">
+      <ul class="flex transition-all duration-300 flex-col items-center md:flex-row gap-3">
         <li>
           <a href="evenements.html" class="p-2 transition-colors duration-300 hover:text-red-600">
             Événements
           </a>
         </li>
-
-        <!-- Afficher Connexion si rôle est "visiteur" -->
-        <li x-show="rolee === 'visiteur'">
-          <a href="connexion.html" class="p-2 transition-colors duration-300 hover:text-red-600">
+        
+        <!-- Afficher Connexion si rôle est "visiteur" et que "rolee" est défini -->
+        <li x-show="rolee === undefined || rolee === 'visiteur'">
+          <a x-transition.opacity href="connexion.html" class="p-2 transition-colors duration-300 hover:text-red-600">
             Connexion
           </a>
         </li>
 
-        <!-- Afficher Mon Esportify si rôle n'est pas "visiteur" -->
-        <li x-show="rolee !== 'visiteur'">
-          <a href="dashboard.html" class="p-2 transition-colors duration-300 hover:text-red-600">
+        <!-- Afficher Mon Esportify si rôle n'est pas "visiteur" et que "rolee" est défini -->
+        <li x-show="rolee !== undefined && rolee !== 'visiteur'" x-cloak>
+          <a x-transition.opacity href="dashboard.html" class="p-2 transition-colors duration-300 hover:text-red-600">
             Mon Esportify
           </a>
         </li>
@@ -43,3 +37,8 @@
     </div>
   </nav>
 </header>
+<style>
+  [x-cloak] {
+  display: none !important;
+  }
+</style>

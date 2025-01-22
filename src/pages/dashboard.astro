@@ -8,19 +8,19 @@ import Createevent from "../components/createevent.astro";
 
 <Layout title="Dashboard">
   <PopupEvent>
-    <section
-      class="max-w-3xl mx-auto"
-      x-data="{ rolee: window.role }"
-      x-init="
-      console.log('Initialisation du rôle:', rolee);
-      window.addEventListener('role-changed', (event) => {
-      console.log('Rôle mis à jour immédiatement:', event.detail.role);
-      rolee = event.detail.role;
-      });"
+    <section x-data="{
+      roleeReady: false
+    }"
+    x-init="
+      setTimeout(() => { roleeReady = true }, 80); // Attendre un peu avant d'afficher
+    "
+    x-show="roleeReady" x-cloak class="transition-all duration-300 max-w-3xl mx-auto"
     >
       <!-- Vérification de connexion -->
       <section
-        x-show="rolee === 'visiteur'"
+        x-cloak
+        x-transition.opacity
+        x-show="rolee !== undefined && rolee === 'visiteur'"
         :class="{ 'hidden': rolee !== 'visiteur'}"
       >
         <div
@@ -39,8 +39,10 @@ import Createevent from "../components/createevent.astro";
 
       <!-- Dashboard joueur+ -->
       <section
+        x-cloak
+        x-transition.opacity
         style="display:none"
-        x-show="rolee !== 'visiteur'"
+        x-show="rolee !== undefined && rolee !== 'visiteur'"
         :class="{ 'hidden': rolee === 'visiteur'}"
       >
         <h1 class="text-5xl px-3 font-hero text-heading mb-6 my-14">
@@ -49,12 +51,14 @@ import Createevent from "../components/createevent.astro";
         <h2 class="text-2xl font-semibold mt-20 mb-2 ml-4">
           Mes événements favoris
         </h2>
-        <EventTimeline apiEndPoint="favorites" />
+        <EventTimeline apiEndPoint="protected/favorites" />
       </section>
 
       <!-- Dashboard orga+ -->
       <section
-        x-show="rolee === 'orga' || rolee === 'admin'"
+        x-cloak
+        x-transition.opacity
+        x-show="rolee !== undefined && rolee === 'orga' || rolee === 'admin'"
         :class="{ 'hidden': rolee === 'visiteur' || rolee === 'joueur'}"
       >
         
@@ -64,7 +68,9 @@ import Createevent from "../components/createevent.astro";
 
       <!-- Dashboard admin-->
       <section
-        x-show="rolee === 'admin'"
+        x-cloak
+        x-transition.opacity
+        x-show="rolee !== undefined && rolee === 'admin'"
         :class="{ 'hidden': rolee === 'joueur' || rolee === 'visiteur' || rolee === 'orga' }"
       >
         <!-- Conteneur pour aligner les tableaux -->
@@ -161,8 +167,10 @@ import Createevent from "../components/createevent.astro";
 
       <!-- Section Statistiques (visible pour orga et admin ) -->
       <section
+        x-cloak
+        x-transition.opacity
         class="p-4"
-        x-show="rolee === 'orga'|| rolee === 'admin'"
+        x-show="rolee !== undefined && rolee === 'orga'|| rolee === 'admin'"
         :class="{ 'hidden': rolee === 'joueur' || rolee === 'visiteur' }"
       >
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -183,8 +191,10 @@ import Createevent from "../components/createevent.astro";
 
       <!-- Section tableau des événements (visible pour joueur, orga et admin ) -->
       <section
+        x-cloak
+        x-transition.opacity
         class="p-4"
-        x-show="rolee === 'orga'|| rolee === 'admin' || rolee === 'joueur'"
+        x-show="rolee !== undefined && rolee === 'orga'|| rolee === 'admin' || rolee === 'joueur'"
         :class="{ 'hidden': rolee === 'visiteur' }"
       >
         <h2 class="text-2xl font-semibold mb-2 ml-2">
@@ -194,4 +204,9 @@ import Createevent from "../components/createevent.astro";
       </section>
     </section>
   </PopupEvent>
+  <style>
+    [x-cloak] {
+    display: none !important;
+    }
+  </style>
 </Layout>

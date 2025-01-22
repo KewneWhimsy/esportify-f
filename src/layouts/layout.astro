@@ -11,7 +11,23 @@ import "../fonts/fonts.css";
 ---
 
 <!doctype html>
-<html lang="fr">
+<html
+  x-data="{
+    open: false, 
+    rolee: sessionStorage.getItem('role') || 'visiteur', 
+    roleeReady: false
+  }"
+  x-init="
+    console.log('Initialisation du rôle:', rolee);
+    window.addEventListener('role-changed', (event) => {
+      console.log('Rôle mis à jour immédiatement:', event.detail.role);
+      rolee = event.detail.role;
+      sessionStorage.setItem('role', event.detail.role);
+    });
+    setTimeout(() => { roleeReady = true }, 100); // Attendre un peu avant d'afficher
+  "
+  lang="fr"
+>
   <head>
     <!-- Encodage des caractères pour le document -->
     <meta charset="UTF-8" />
@@ -100,6 +116,7 @@ import "../fonts/fonts.css";
       content='{"selfRequestsOnly":false,"globalViewTransitions":true}'
     />
 
+    <!-- Décodage du JWT et émission de l'événement "role-changed" -->
     <script>
       import { jwtDecode } from "jwt-decode";
 
@@ -133,13 +150,22 @@ import "../fonts/fonts.css";
         // Vérifie si xhr est disponible dans l'événement
         const xhr = customEvent?.detail?.xhr;
 
-        // Si xhr est défini, ajoute l'en-tête
         if (xhr) {
-          const token = sessionStorage.getItem("jwt");
+          // Récupère l'URL cible de la requête
+          const url = customEvent?.detail?.path;
 
-          if (token) {
-            // Ajoute l'en-tête Authorization avec le token
-            xhr.setRequestHeader("Authorization", "Bearer " + token);
+          // Vérifie si le token est nécessaire pour cette requête
+          const needsAuth = url && url.includes("/api/protected") || url.includes("/admin");
+
+          if (needsAuth) {
+            const token = sessionStorage.getItem("jwt");
+
+            if (token) {
+              // Ajoute l'en-tête Authorization avec le token
+              xhr.setRequestHeader("Authorization", "Bearer " + token);
+            } else {
+              console.warn("Aucun token JWT trouvé dans le sessionStorage");
+            }
           }
         } else {
           console.error("XHR n'est pas défini");
@@ -153,7 +179,6 @@ import "../fonts/fonts.css";
       <Header />
 
       <slot />
-      
     </main>
     <Footer />
   </body>
