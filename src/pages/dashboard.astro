@@ -9,7 +9,7 @@ import Createevent from "../components/createevent.astro";
 <Layout title="Dashboard">
   <PopupEvent>
     <section
-      class="max-w-[900px] mx-auto"
+      class="max-w-3xl mx-auto"
       x-data="{ rolee: window.role }"
       x-init="
       console.log('Initialisation du rôle:', rolee);
@@ -37,7 +37,7 @@ import Createevent from "../components/createevent.astro";
         </div>
       </section>
 
-      <!-- Dashboard -->
+      <!-- Dashboard joueur+ -->
       <section
         style="display:none"
         x-show="rolee !== 'visiteur'"
@@ -46,7 +46,7 @@ import Createevent from "../components/createevent.astro";
         <h1 class="text-5xl px-3 font-hero text-heading mb-6 my-14">
           Tableau de bord
         </h1>
-        <h2 class="text-xl font-semibold mt-20 mb-2 ml-4">
+        <h2 class="text-2xl font-semibold mt-20 mb-2 ml-4">
           Mes événements favoris
         </h2>
         <EventTimeline apiEndPoint="favorites" />
@@ -71,7 +71,7 @@ import Createevent from "../components/createevent.astro";
         <div class="grid gap-8">
           <!-- Section Gestion des Événements -->
           <section>
-            <h2 class="text-xl font-semibold mb-4 ml-4">
+            <h2 class="text-2xl font-semibold mb-4 ml-4">
               Modération événements
             </h2>
             <div class="bg-[#161215] shadow rounded p-4">
@@ -116,7 +116,7 @@ import Createevent from "../components/createevent.astro";
 
           <!-- Section Gestion des Droits Utilisateurs -->
           <section>
-            <h2 class="text-xl font-semibold mb-4 ml-4">Droits utilisateurs</h2>
+            <h2 class="text-x2l font-semibold mb-4 ml-4">Droits utilisateurs</h2>
             <div class="bg-[#161215] shadow rounded p-4">
               <table class="min-w-full table-auto">
                 <thead>
@@ -166,28 +166,28 @@ import Createevent from "../components/createevent.astro";
         :class="{ 'hidden': rolee === 'joueur' || rolee === 'visiteur' }"
       >
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="bg-[#4d2d45] shadow rounded p-4 text-center">
+          <div class="bg-[#4d2d45] shadow rounded-xl p-4 text-center">
             <h3 class="text-2xl font-bold">125</h3>
-            <p class="">Événements créés</p>
+            <p class="text-lg">Événements créés</p>
           </div>
-          <div class="bg-[#4d2d45] shadow rounded p-4 text-center">
+          <div class="bg-[#4d2d45] shadow rounded-xl p-4 text-center">
             <h3 class="text-2xl font-bold">350</h3>
-            <p class="">Participants</p>
+            <p class="text-lg">Participants</p>
           </div>
-          <div class="bg-[#4d2d45] shadow rounded p-4 text-center">
+          <div class="bg-[#4d2d45] shadow rounded-xl p-4 text-center">
             <h3 class="text-2xl font-bold">24</h3>
-            <p class="">Événements en attente</p>
+            <p class="text-lg">Événements en attente</p>
           </div>
         </div>
       </section>
 
-      <!-- Section tableau des événements (visible pour orga et admin ) -->
+      <!-- Section tableau des événements (visible pour joueur, orga et admin ) -->
       <section
         class="p-4"
         x-show="rolee === 'orga'|| rolee === 'admin' || rolee === 'joueur'"
         :class="{ 'hidden': rolee === 'visiteur' }"
       >
-        <h2 class="text-xl font-semibold mb-2 ml-2">
+        <h2 class="text-2xl font-semibold mb-2 ml-2">
           Tout les événements
         </h2>
         <Eventtab />

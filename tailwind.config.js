@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: { // rajout de classes supplémentaires
+      textShadow: {
+        'default': '2px 2px 4px rgba(0, 0, 0, 0.9)', // ombre noire texte
+      },
       colors: {
         background: "#1F191D", // fond noir teinté de couleur rouge/rose
         text: "#FFFFEF", // blanc cassé vers le jaune
@@ -20,6 +23,11 @@ export default {
       },
     },
   },
+  variants: {
+    extend: {
+      textShadow: ['responsive'],
+    },
+  },
   safelist: [
     'bg-[#26232A]', // Force la conservation de cette classe
     'hover:scale-105', // Et toute autre classe dynamique
@@ -32,6 +40,15 @@ export default {
     'cursor-pointer', 'flex-shrink-0', 'gap-0.5', 'hidden', 'bg-blue-500', 'hover:bg-blue-600', 'rounded', 'bg-opacity-80',
      'bg-red-600', 'hover:bg-red-700', 'mt-10', 'border-gray-300', 'ml-auto',
   ],
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.text-shadow': {
+          'text-shadow': '2px 2px 4px rgba(0, 0, 0, 0.9)',
+        },
+      }
+      addUtilities(newUtilities, ['responsive'])
+    }
+  ],
 }
 

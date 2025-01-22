@@ -4,18 +4,17 @@ import { apiUrl } from "../lib/constants";
 
 <button
   popovertarget="createEvent"
-  class="max-w-xl mx-auto p-6 bg-green-600 hover:bg-green-700 rounded shadow-lg
-  text-xl font-semibold flex self-center mb-12"
+  id="creevent"
+  class="max-w-xl mx-auto p-6 bg-[#4d2d45] hover:scale-110 transition-transform rounded-lg shadow-lg
+  text-2xl font-semibold flex self-center mb-12"
   >Créer un événement</button
 >
 
-<div class="rounded" id="createEvent"
-popover
->
-  <h2 class="cursor-move">(popup déplaçable)</h2>
+<div class="rounded" id="createEvent" popover>
+  <h2 class="bg-[#5e3554] text-right cursor-move mb-1">( popup déplaçable )</h2>
   <form
-    
-    class="inset-0 bg-green-600 w-full rounded max-w-[900px] mx-auto items-center justify-center z-50 p-6"
+    id="formPopupCSS"
+    class="inset-0 w-full rounded max-w-[900px] mx-auto items-center justify-center z-50 px-5 py-3"
     x-transition:opacity
     class="rounded-lg w-full max-w-2xl"
     x-transition:enter="transition ease-out duration-300"
@@ -28,7 +27,6 @@ popover
     hx-target="#form-message"
     hx-swap="innerHTML"
     class="space-y-4"
-    
   >
     <!-- Titre -->
     <div>
@@ -40,7 +38,7 @@ popover
         id="title"
         name="title"
         required
-        class="w-full mt-1 border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-300"
+        class="bg-[#161215] text-text w-full mt-1 border rounded px-3 py-2"
         placeholder="Titre de l'événement"
       />
     </div>
@@ -54,7 +52,7 @@ popover
         id="description"
         name="description"
         required
-        class="w-full mt-1 border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-300 min-h-72 min-w-72"
+        class="bg-[#161215] text-text w-full mt-1 border rounded px-3 py-2 min-h-72 min-w-72"
         placeholder="Description de l'événement"></textarea>
     </div>
 
@@ -69,7 +67,7 @@ popover
         name="players_count"
         required
         min="2"
-        class="w-full mt-1 border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-300"
+        class="bg-[#161215] text-text w-full mt-1 border rounded px-3 py-2"
         placeholder="Nombre de joueurs (minimum 2)"
       />
     </div>
@@ -84,7 +82,7 @@ popover
         id="start_datetime"
         name="start_datetime"
         required
-        class="w-full mt-1 border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-300"
+        class="bg-[#161215] text-text w-full mt-1 border rounded px-3 py-2"
       />
     </div>
 
@@ -98,7 +96,7 @@ popover
         id="end_datetime"
         name="end_datetime"
         required
-        class="w-full mt-1 border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-300"
+        class="bg-[#161215] text-text w-full mt-1 border rounded px-3 py-2"
       />
     </div>
 
@@ -106,7 +104,7 @@ popover
     <div>
       <button
         type="submit"
-        class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        class="w-full bg-[#5e3554] hover:bg-yellow-600 hover:text-shadow text-white px-4 py-2 mt-10 rounded transition-colors"
       >
         Créer l'événement
       </button>
@@ -117,32 +115,60 @@ popover
   </form>
 </div>
 <script>
-  const popupMovable = document.getElementById('createEvent') as HTMLElement;
-  const header = popupMovable.querySelector('h2') as HTMLElement
+  const popupMovable = document.getElementById("createEvent") as HTMLElement;
+  const header = popupMovable.querySelector("h2") as HTMLElement;
   let isDragging = false;
   let startX = 0;
   let startY = 0;
-  let offsetX = 0, offsetY = 0;
+  let offsetX = 0,
+    offsetY = 0;
 
-  header.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      startX = e.clientX - offsetX;
-      startY = e.clientY - offsetY;
-      popupMovable.classList.add('grabbing');
+  header.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    startX = e.clientX - offsetX;
+    startY = e.clientY - offsetY;
+    popupMovable.classList.add("grabbing");
   });
 
-  document.addEventListener('mousemove', (e) => {
-      if (isDragging) {
-          offsetX = e.clientX - startX;
-          offsetY = e.clientY - startY;
+  document.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+      offsetX = e.clientX - startX;
+      offsetY = e.clientY - startY;
 
-          // Utilisation de `transform` pour un déplacement fluide
-          popupMovable.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-      }
+      // Utilisation de `transform` pour un déplacement fluide
+      popupMovable.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+    }
   });
 
-  document.addEventListener('mouseup', () => {
-      isDragging = false;
-      popupMovable.classList.remove('grabbing');
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+    popupMovable.classList.remove("grabbing");
   });
 </script>
+<style>
+  #creevent{
+    background: linear-gradient(to bottom, #642b56, #6e4262);
+  }
+  #formPopupCSS{
+    background: linear-gradient(to bottom, #251e23, #121012);
+    @apply text-text;
+  }
+  #createEvent{
+    @apply bg-[#5e3554] text-text;
+  }
+
+  
+
+  input, textarea {
+    border: 1px solid #4d2d45; /* Bordure personnalisée */
+  }
+  
+  
+  
+
+
+
+  input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Icone blanche */ 
+  }
+</style>
