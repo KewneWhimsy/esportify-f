@@ -4,6 +4,7 @@ import EventTimeline from "../components/eventtimeline.astro";
 import Eventtab from "../components/eventtab.astro";
 import PopupEvent from "../components/popupevent.astro";
 import Createevent from "../components/createevent.astro";
+import { apiUrl } from "../lib/constants";
 ---
 
 <Layout title="Dashboard">
@@ -91,9 +92,10 @@ import Createevent from "../components/createevent.astro";
                   </tr>
                 </thead>
                 <tbody
-                  id="moderevent"
-                  hx-get="/admin/events/pending"
-                  hx-trigger="load"></tbody>
+                  id="pendingEvents"
+                  hx-get={`${apiUrl}/admin/events/pending`}
+                  hx-trigger="load">
+                </tbody>
               </table>
             </div>
           </section>
@@ -111,7 +113,7 @@ import Createevent from "../components/createevent.astro";
                 </thead>
                 <tbody
                   id="approvedEvents"
-                  hx-get="/admin/events/approved"
+                  hx-get={`${apiUrl}/admin/events/approved`}
                   hx-trigger="load"></tbody>
               </table>
             </div>
