@@ -1,13 +1,14 @@
 ---
-// Définit une interface TypeScript pour les propriétés du composant.
+import Header from "./header.astro";
+import Footer from "./footer.astro";
+import "../fonts/fonts.css";
+
+// Définit une interface TypeScript pour les props.
 interface Props {
   title: string; //  Spécifie que la propriété title doit être une chaîne de caractères.
 }
 
 const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation du composant.
-import Header from "../layouts/header.astro";
-import Footer from "./footer.astro";
-import "../fonts/fonts.css";
 ---
 
 <!doctype html>
@@ -15,7 +16,6 @@ import "../fonts/fonts.css";
   x-data="{
     open: false, 
     rolee: sessionStorage.getItem('role') || 'visiteur', 
-    roleeReady: false
   }"
   x-init="
     console.log('Initialisation du rôle:', rolee);
@@ -24,7 +24,6 @@ import "../fonts/fonts.css";
       rolee = event.detail.role;
       sessionStorage.setItem('role', event.detail.role);
     });
-    setTimeout(() => { roleeReady = true }, 100); // Attendre un peu avant d'afficher
   "
   lang="fr"
 >
@@ -35,9 +34,89 @@ import "../fonts/fonts.css";
     <meta name="description" content="Esportify" />
     <!-- adapte la largeur de la page à celle de l'écran, force le zoom initial à 100% -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Indique le générateur du site (Astro) -->
+    <meta name="generator" content={Astro.generator} />
+    <!-- îcone de l'onglet du navigateur et google -->
+    <link rel="icon" type="image/png" href="logoesportify.png" />
+    <!-- Définit le titre de la page par une valeur à lui donner quand on utilise ce composant (Props)-->
+    <title>{title}</title>
+
+    <!-- Charge Alpine.js pour l'interactivité Client -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"
+    ></script>
+    <!-- Charge htmx pour l'interactivité Serveur -->
+    <script
+      defer
+      src="https://unpkg.com/htmx.org@2.0.2"
+      integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ"
+      crossorigin="anonymous"></script>
+    <!-- Configure htmx pour autoriser les requêtes vers des domaines externes + Transition pendant les swaps  -->
+    <meta
+      name="htmx-config"
+      content='{"selfRequestsOnly":false,"globalViewTransitions":true}'
+    />
+
+    <!-- Décodage du JWT et émission de l'événement "role-changed" -->
+    <script>
+      import { jwtDecode } from "jwt-decode";
+
+      function handleRoleChange(role: string) {
+        window.role = role;
+        window.dispatchEvent(
+          new CustomEvent("role-changed", {
+            detail: { role },
+          })
+        );
+        console.log(`Rôle mis à jour: ${role}`);
+      }
+
+      function initializeUserRole() {
+        const token = sessionStorage.getItem("jwt");
+
+        if (!token) {
+          handleRoleChange("visiteur");
+          return;
+        }
+
+        try {
+          const decoded = jwtDecode<MyJwtPayload>(token);
+          handleRoleChange(decoded.role);
+        } catch (error) {
+          console.error("Erreur de décodage JWT:", error);
+          handleRoleChange("visiteur");
+        }
+      }
+
+      // Initialise le rôle au chargement
+      initializeUserRole();
+
+      document.body.addEventListener("htmx:beforeRequest", (event: Event) => {
+        const htmxEvent = event as CustomEvent;
+
+        // Récupération de l'objet XMLHttpRequest
+        const xhr = htmxEvent?.detail?.xhr;
+        if (!xhr) {
+          console.warn("Aucune requête XHR trouvée dans l'événement HTMX.");
+          return;
+        }
+
+        // Récupération du token JWT dans sessionStorage
+        const token = sessionStorage.getItem("jwt");
+        if (!token) {
+          console.warn("Aucun token JWT trouvé dans le stockage de session.");
+          return;
+        }
+
+        // Ajout du header Authorization
+        console.log("Ajout du header Authorization:", `Bearer ${token}`);
+        xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+      });
+    </script>
 
     <!-- Styles globaux, initialisation supplémentaire à l'initialisation faite par tailwind -->
-    <style>
+    <style is:global>
       :root {
         --primary-color: #d00000a6;
         --secondary-color: #1f191d;
@@ -89,89 +168,6 @@ import "../fonts/fonts.css";
         navigation: auto; /* enabled! */
       }
     </style>
-
-    <!-- îcone de l'onglet du navigateur et google -->
-    <link rel="icon" type="image/png" href="logoesportify.png" />
-
-    <!-- Indique le générateur du site (Astro) -->
-    <meta name="generator" content={Astro.generator} />
-
-    <!-- Définit le titre de la page par une valeur à lui donner quand on utilise ce composant (Props)-->
-    <title>{title}</title>
-
-    <!-- Charge Alpine.js pour l'interactivité Client -->
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"
-    ></script>
-    <!-- Charge htmx pour l'interactivité Serveur -->
-    <script
-      defer
-      src="https://unpkg.com/htmx.org@2.0.2"
-      integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ"
-      crossorigin="anonymous"></script>
-    <!-- Configure htmx pour autoriser les requêtes vers des domaines externes + Transition pendant les swaps  -->
-    <meta
-      name="htmx-config"
-      content='{"selfRequestsOnly":false,"globalViewTransitions":true}'
-    />
-
-    <!-- Décodage du JWT et émission de l'événement "role-changed" -->
-    <script>
-      import { jwtDecode } from "jwt-decode";
-
-      // Récupérer le token depuis sessionStorage
-      const token = sessionStorage.getItem("jwt");
-      window.role = "visiteur" as string; // Rôle par défaut
-      if (token) {
-        try {
-          const decoded = jwtDecode<MyJwtPayload>(token);
-          window.role = decoded.role;
-          console.log("Rôle utilisateur:", decoded.role);
-          // Émet un événement personnalisé
-          window.dispatchEvent(
-            new CustomEvent("role-changed", { detail: { role: decoded.role } })
-          );
-        } catch (error) {
-          console.error("Erreur lors du décodage du token:", error);
-        }
-      } else {
-        console.log("Aucun token trouvé, rôle par défaut:", window.role);
-        window.dispatchEvent(
-          new CustomEvent("role-changed", { detail: { role: "visiteur" } })
-        );
-      }
-    </script>
-    <script>
-      document.body.addEventListener("htmx:beforeRequest", function (event) {
-        // Récupère l'objet de l'événement
-        const customEvent = event as CustomEvent;
-
-        // Vérifie si xhr est disponible dans l'événement
-        const xhr = customEvent?.detail?.xhr;
-
-        if (xhr) {
-          // Récupère l'URL cible de la requête
-          const url = customEvent?.detail?.path;
-
-          // Vérifie si le token est nécessaire pour cette requête
-          const needsAuth = url && url.includes("/api/protected") || url.includes("/admin");
-
-          if (needsAuth) {
-            const token = sessionStorage.getItem("jwt");
-
-            if (token) {
-              // Ajoute l'en-tête Authorization avec le token
-              xhr.setRequestHeader("Authorization", "Bearer " + token);
-            } else {
-              console.warn("Aucun token JWT trouvé dans le sessionStorage");
-            }
-          }
-        } else {
-          console.error("XHR n'est pas défini");
-        }
-      });
-    </script>
   </head>
 
   <body class="min-h-screen flex flex-col">

@@ -8,13 +8,7 @@ import Createevent from "../components/createevent.astro";
 
 <Layout title="Dashboard">
   <PopupEvent>
-    <section x-data="{
-      roleeReady: false
-    }"
-    x-init="
-      setTimeout(() => { roleeReady = true }, 80); // Attendre un peu avant d'afficher
-    "
-    x-show="roleeReady" x-cloak class="transition-all duration-300 max-w-3xl mx-auto"
+    <section x-cloak class="transition-all duration-300 max-w-3xl mx-auto"
     >
       <!-- Vérification de connexion -->
       <section
