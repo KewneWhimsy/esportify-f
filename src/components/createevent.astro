@@ -23,7 +23,7 @@ import { apiUrl } from "../lib/constants";
     x-transition:leave="transition ease-in duration-200"
     x-transition:leave-start="opacity-100 scale-100"
     x-transition:leave-end="opacity-0 scale-90"
-    hx-post={`${apiUrl}/api/protected/events`}
+    hx-post={`${apiUrl}/api/events`}
     hx-target="#form-message"
     hx-swap="innerHTML"
     class="space-y-4"

@@ -62,14 +62,14 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
     <script>
       import { jwtDecode } from "jwt-decode";
 
-      function handleRoleChange(role: string) {
-        window.role = role;
+      function handleRoleChange(rolee: string) {
+        window.role = rolee;
         window.dispatchEvent(
           new CustomEvent("role-changed", {
-            detail: { role },
+            detail: { rolee },
           })
         );
-        console.log(`Rôle mis à jour: ${role}`);
+        console.log(`Rôle mis à jour: ${rolee}`);
       }
 
       function initializeUserRole() {
