@@ -31,7 +31,7 @@ export default {
   safelist: [
     'bg-[#26232A]', // Force la conservation de cette classe
     'hover:scale-105', // Et toute autre classe dynamique
-    'mt-4', 'px-4', 'py-2', 'text-2xl', 'font-bold', 'mb-4', 
+    'mt-4', 'px-4', 'py-2', 'py-3', 'text-2xl', 'font-bold', 'mb-4', 
     'font-heading', 'text-heading', 'border', 
     'p-6', 'rounded-lg', 'shadow-lg', 'h-full', 'w-full', 'text-sm', 
     'text-gray-400', 'text-lg', 'leading-tight', 'mb-2', 
@@ -40,6 +40,8 @@ export default {
     'cursor-pointer', 'flex-shrink-0', 'gap-0.5', 'hidden', 'bg-blue-500', 'hover:bg-blue-600', 'rounded', 'bg-opacity-80',
     'bg-red-600', 'text-red-500', 'hover:bg-red-700', 'mt-10', 'border-gray-300', 'ml-auto', 'text-green-500',
     'px-3', 'py-1', 'bg-orange-600', 'hover:bg-orange-700', 'bg-green-600', 'hover:bg-green-700',
+    'gap-2', 'text-yellow-600', 'text-green-600', 'bg-gray-500', 'hover:bg-gray-700' ,'transition-colors', 
+    'bg-blue-900', 'hover:bg-yellow-600',
   ],
   plugins: [
     function ({ addUtilities }) {
