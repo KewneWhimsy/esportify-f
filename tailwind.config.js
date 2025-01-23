@@ -38,7 +38,8 @@ export default {
     'justify-between', 'border-[#E5E7EB]', 'p-4', 'bg-red-800', 
     'w-64', 'shadow-md', 'transition-transform', 'scale-105', 
     'cursor-pointer', 'flex-shrink-0', 'gap-0.5', 'hidden', 'bg-blue-500', 'hover:bg-blue-600', 'rounded', 'bg-opacity-80',
-     'bg-red-600', 'text-red-500', 'hover:bg-red-700', 'mt-10', 'border-gray-300', 'ml-auto', 'text-green-500',
+    'bg-red-600', 'text-red-500', 'hover:bg-red-700', 'mt-10', 'border-gray-300', 'ml-auto', 'text-green-500',
+    'px-3', 'py-1', 'bg-orange-600', 'hover:bg-orange-700', 'bg-green-600', 'hover:bg-green-700',
   ],
   plugins: [
     function ({ addUtilities }) {
