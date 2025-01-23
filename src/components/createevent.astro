@@ -14,18 +14,11 @@ import { apiUrl } from "../lib/constants";
   <h2 class="bg-[#5e3554] text-right cursor-move mb-1">( popup déplaçable )</h2>
   <form
     id="formPopupCSS"
-    class="inset-0 w-full rounded max-w-[900px] mx-auto items-center justify-center z-50 px-5 py-3"
-    x-transition:opacity
-    class="rounded-lg w-full max-w-2xl"
-    x-transition:enter="transition ease-out duration-300"
-    x-transition:enter-start="opacity-0 scale-90"
-    x-transition:enter-end="opacity-100 scale-100"
-    x-transition:leave="transition ease-in duration-200"
-    x-transition:leave-start="opacity-100 scale-100"
-    x-transition:leave-end="opacity-0 scale-90"
+    class="inset-0 w-full rounded max-w-[900px] mx-auto items-center justify-center z-50 px-5 py-3 transition-opacity"
     hx-post={`${apiUrl}/api/events`}
     hx-target="#form-message"
     hx-swap="innerHTML"
+    hx-trigger="submit"
     class="space-y-4"
   >
     <!-- Titre -->
