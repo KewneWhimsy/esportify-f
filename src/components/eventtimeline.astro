@@ -31,6 +31,7 @@ const { apiEndPoint, color, colorHover } = Astro.props;
         <p class="text-sm">Trier par date</p>
       </button>
       <button
+        x-show={`'${apiEndPoint}' !== 'myevents'`}
         hx-get={`${apiUrl}/api/${apiEndPoint}?sort=organisateur`}
         hx-target={`#${apiEndPoint}Container`}
         hx-swap="innerHTML"
