@@ -1,0 +1,23 @@
+<script>
+    document.body.addEventListener("htmx:beforeRequest", (event: Event) => {
+      const htmxEvent = event as CustomEvent;
+
+      // Récupération de l'objet XMLHttpRequest
+      const xhr = htmxEvent?.detail?.xhr;
+      if (!xhr) {
+        console.warn("Aucune requête XHR trouvée dans l'événement HTMX.");
+        return;
+      }
+
+      // Récupération du token JWT dans sessionStorage
+      const token = sessionStorage.getItem("jwt");
+      if (!token) {
+        console.warn("Aucun token JWT trouvé dans le stockage de session.");
+        return;
+      }
+
+      // Ajout du header Authorization
+      console.log("Ajout du header Authorization");
+      xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+    });
+  </script>

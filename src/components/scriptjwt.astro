@@ -1,0 +1,33 @@
+<script>
+  import { jwtDecode } from "jwt-decode";
+
+  function handleRoleChange(role: string) {
+    window.role = role;
+    window.dispatchEvent(
+      new CustomEvent("role-changed", {
+        detail: { role },
+      })
+    );
+    console.log(`Rôle mis à jour: ${role}`);
+  }
+
+  function initializeUserRole() {
+    const token = sessionStorage.getItem("jwt");
+
+    if (!token) {
+      handleRoleChange("visiteur");
+      return;
+    }
+
+    try {
+      const decoded = jwtDecode<MyJwtPayload>(token);
+      handleRoleChange(decoded.role);
+    } catch (error) {
+      console.error("Erreur de décodage JWT:", error);
+      handleRoleChange("visiteur");
+    }
+  }
+
+  // Initialise le rôle au chargement
+  initializeUserRole();
+</script>
