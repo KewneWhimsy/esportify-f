@@ -55,7 +55,11 @@ import Adminboard from "../components/adminboard.astro";
         <h2 class="text-2xl font-semibold mt-20 mb-2 ml-4">
           Mes événements favoris
         </h2>
-        <EventTimeline apiEndPoint="favorites" />
+        <EventTimeline
+          apiEndPoint="favorites"
+          color="red-700"
+          colorHover="red-800"
+        />
       </section>
 
       <!-- Dashboard orga+ -->
@@ -66,6 +70,12 @@ import Adminboard from "../components/adminboard.astro";
         :class="{ 'hidden': rolee === 'visiteur' || rolee === 'joueur'}"
       >
         <Createevent />
+        <h2 class="text-2xl font-semibold mt-20 mb-2 ml-4">Mes créations</h2>
+        <EventTimeline
+          apiEndPoint="events"
+          color="[#642b56]"
+          colorHover="[#532447]"
+        />
       </section>
 
       <!-- Dashboard admin-->
