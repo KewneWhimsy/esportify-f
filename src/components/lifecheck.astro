@@ -34,8 +34,6 @@ document.body.addEventListener("htmx:responseError", (event) => {
   } else if (statusCode === 403) {
     // Ne rien faire pour les erreurs 403
     console.info("403 : Requête interdite (attendue, aucun traitement nécessaire).");
-  } else {
-    alert(`Erreur : ${statusCode}. Vérifiez votre requête.`);
   }
 });
 </script>
