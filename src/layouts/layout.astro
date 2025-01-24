@@ -2,6 +2,7 @@
 import Header from "./header.astro";
 import Footer from "./footer.astro";
 import "../fonts/fonts.css";
+import Lifecheck from "../components/lifecheck.astro";
 
 // Définit une interface TypeScript pour les props.
 interface Props {
@@ -178,4 +179,5 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
     </main>
     <Footer />
   </body>
+  <Lifecheck />
 </html>

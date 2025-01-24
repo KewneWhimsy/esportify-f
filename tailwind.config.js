@@ -41,7 +41,7 @@ export default {
     'bg-red-600', 'text-red-500', 'hover:bg-red-700', 'mt-10', 'border-gray-300', 'ml-auto', 'text-green-500',
     'px-3', 'py-1', 'bg-orange-600', 'hover:bg-orange-700', 'bg-green-600', 'hover:bg-green-700',
     'gap-2', 'text-yellow-600', 'text-green-600', 'bg-gray-500', 'hover:bg-gray-700' ,'transition-colors', 
-    'bg-blue-900', 'hover:bg-yellow-600', 'text-[6e4262]', 'ml-1', 'hover:text-yellow-600', 'hover:bg-[#532447]',
+    'bg-blue-900', 'hover:bg-yellow-600', 'text-[6e4262]', 'ml-1', 'hover:text-yellow-600', 'hover:bg-[#532447]', 'bg-[#642b56]',
   ],
   plugins: [
     function ({ addUtilities }) {

@@ -1,0 +1,39 @@
+---
+import { apiUrl } from "../lib/constants";
+---
+
+<div
+  hx-get={`${apiUrl}/health`}
+  hx-trigger="every 10s"
+  hx-swap="none"
+  hx-on="htmx:beforeRequest:checkServerStatus"
+>
+</div>
+
+<script>
+  document.body.addEventListener("htmx:beforeRequest", (event: Event) => {
+  const customEvent = event as CustomEvent;
+
+  if (
+    customEvent.detail.pathInfo &&
+    customEvent.detail.pathInfo.finalRequestPath.includes("/health")
+  ) {
+    console.log("Vérification de l'état du serveur via HTMX.");
+  }
+});
+
+document.body.addEventListener("htmx:responseError", (event) => {
+  const customEvent = event as CustomEvent;
+  const statusCode = customEvent.detail.xhr.status;
+
+  console.warn(`Erreur détectée : ${statusCode}`);
+  if (statusCode === 503) {
+    if (confirm("Le serveur est en veille. Voulez-vous rafraîchir la page ?")) {
+      location.reload();
+    }
+  } else if (statusCode >= 400) {
+    alert(`Erreur : ${statusCode}. Vérifiez votre requête.`);
+  }
+});
+
+</script>
