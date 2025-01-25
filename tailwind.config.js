@@ -15,6 +15,7 @@ export default {
         heading: "#FF6F47", // orange lisible
         link: "#FF4D4D", // rouge vif mais non agressif
         linkHover: "#FF0000", // rouge plus sombre
+        myEvent: "#6e4262", // mauve clair
       },
       fontFamily: {
         body: ["system-ui", "sans-serif", "Arial"], // police de base des appareils ou autre police lisible et universel
@@ -41,7 +42,7 @@ export default {
     'bg-red-600', 'text-red-500', 'hover:bg-red-700', 'mt-10', 'border-gray-300', 'ml-auto', 'text-green-500',
     'px-3', 'py-1', 'bg-orange-600', 'hover:bg-orange-700', 'bg-green-600', 'hover:bg-green-700',
     'gap-2', 'text-yellow-600', 'text-green-600', 'bg-gray-500', 'hover:bg-gray-700' ,'transition-colors', 
-    'bg-blue-900', 'hover:bg-yellow-600', 'text-[#6e4262]', 'ml-1', 'hover:text-yellow-600', 'hover:bg-[#532447]', 'bg-[#642b56]',
+    'bg-blue-900', 'hover:bg-yellow-600', 'text-myEvent', 'ml-1', 'hover:text-yellow-600', 'hover:bg-[#532447]', 'bg-[#642b56]',
   ],
   plugins: [
     function ({ addUtilities }) {
