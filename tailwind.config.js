@@ -15,7 +15,7 @@ export default {
         heading: "#FF6F47", // orange lisible
         link: "#FF4D4D", // rouge vif mais non agressif
         linkHover: "#FF0000", // rouge plus sombre
-        myEvent: "#6e4262", // mauve clair
+        myEvent: "#ac6a9a", // mauve clair
       },
       fontFamily: {
         body: ["system-ui", "sans-serif", "Arial"], // police de base des appareils ou autre police lisible et universel
