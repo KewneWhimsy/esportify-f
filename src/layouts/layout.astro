@@ -125,8 +125,9 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
   <body class="min-h-screen flex flex-col">
     <main class="flex-1">
       <Header />
-
-      <slot />
+      <div id="chatcontain">
+        <slot />
+      </div>
     </main>
     <Footer />
   </body>

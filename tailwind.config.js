@@ -33,7 +33,7 @@ export default {
     'bg-[#26232A]', // Force la conservation de cette classe
     'hover:scale-105', // Et toute autre classe dynamique
     'mt-4', 'px-4', 'py-2', 'py-3', 'text-2xl', 'font-bold', 'mb-4', 
-    'font-heading', 'text-heading', 'border', 
+    'font-heading', 'text-heading', 'border', 'bg-background',
     'p-6', 'rounded-lg', 'shadow-lg', 'h-full', 'w-full', 'text-sm', 
     'text-gray-400', 'text-lg', 'leading-tight', 'mb-2', 
     'justify-between', 'border-[#E5E7EB]', 'p-4', 'bg-red-800', 
