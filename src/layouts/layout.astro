@@ -60,6 +60,7 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
       name="htmx-config"
       content='{"selfRequestsOnly":false,"globalViewTransitions":true}'
     />
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/ws.js"></script>
 
     <!-- Décodage du JWT et émission de l'événement "role-changed" -->
     <ScriptJwt />
