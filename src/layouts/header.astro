@@ -22,10 +22,22 @@
         </li>
 
         <!-- Afficher Mon Esportify si rôle n'est pas "visiteur" et que "rolee" est défini -->
-        <li x-show="rolee !== undefined && rolee !== 'visiteur'" x-cloak>
+        <li x-show="rolee !== undefined && rolee !== 'visiteur'" x-cloak
+        class="flex">
           <a x-transition.opacity href="dashboard.html" class="p-2 transition-colors duration-300 hover:text-red-600">
             Mon Esportify
           </a>
+          <div x-data="{ 
+            logout() { 
+                localStorage.removeItem('jwt');
+                sessionStorage.removeItem('jwt');
+                window.location.href = '/'; // Redirige vers la page de connexion
+            }
+        }">
+            <button @click="logout" class="p-2 transition-colors duration-300 hover:text-red-600">
+                Déconnexion
+            </button>
+        </div>
         </li>
 
         <li>

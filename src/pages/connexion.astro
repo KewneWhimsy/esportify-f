@@ -5,7 +5,8 @@ import Layout from "../layouts/layout.astro";
 <Layout title="Connexion">
     <div x-data="{ 
         username: '', 
-        password: '', 
+        password: '',
+        rememberMe: false, 
         error: '', 
         async login() { 
           try {
@@ -17,7 +18,11 @@ import Layout from "../layouts/layout.astro";
   
             const data = await response.json();
             if (response.ok) {
-              sessionStorage.setItem('jwt', data.token); // Sauvegarde du JWT
+              if (this.rememberMe) {
+                localStorage.setItem('jwt', data.token); // Stocke de manière persistante
+              } else {
+                sessionStorage.setItem('jwt', data.token); // Sauvegarde du JWT
+              }
               window.location.href = 'dashboard.html'; // Redirection
             } else {
               this.error = data.error || 'Erreur inconnue';
@@ -44,6 +49,10 @@ import Layout from "../layouts/layout.astro";
                 class="border p-2 rounded mb-2 w-full bg-[#161215]" 
                 required 
             />
+            <label class="flex items-center space-x-2 p-3 my-3">
+              <input type="checkbox" x-model="rememberMe">
+              <span class="text-sm">Se souvenir de moi</span>
+            </label>
             <button type="submit" class="bg-red-700 hover:bg-red-800 px-4 py-2 rounded">
                 Se connecter
             </button>

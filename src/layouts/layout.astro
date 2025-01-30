@@ -14,18 +14,32 @@ interface Props {
 const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation du composant.
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html
   x-data="{
-    open: false, 
-    rolee: sessionStorage.getItem('role') || 'visiteur', 
-  }"
+  open: false, 
+  rolee: sessionStorage.getItem('role') || localStorage.getItem('role') || 'visiteur', 
+  
+  setRole(newRole, storageType = 'sessionStorage') {
+    this.rolee = newRole;
+    console.log('Rôle mis à jour:', newRole);
+
+    // Nettoyage de l'autre type de stockage
+    if (storageType === 'sessionStorage') {
+      sessionStorage.setItem('role', newRole);
+      localStorage.removeItem('role'); // Évite les conflits
+    } else {
+      localStorage.setItem('role', newRole);
+      sessionStorage.removeItem('role');
+    }
+  }
+}"
   x-init="
     console.log('Initialisation du rôle:', rolee);
     window.addEventListener('role-changed', (event) => {
-      console.log('Rôle mis à jour immédiatement:', event.detail.role);
-      rolee = event.detail.role;
-      sessionStorage.setItem('role', event.detail.role);
+      const { role, storageType } = event.detail;
+      console.log('Rôle mis à jour immédiatement:', role);
+      setRole(role, storageType);
     });
   "
   lang="fr"
@@ -130,7 +144,6 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
       </div>
     </main>
     <Footer />
-  </body>
-  <!-- Surveille l'état du backend -->
+  </body><!-- Surveille l'état du backend -->
   <LifeCheck />
 </html>
