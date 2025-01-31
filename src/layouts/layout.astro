@@ -1,10 +1,10 @@
 ---
-import Header from "./header.astro";
-import Footer from "./footer.astro";
-import "../fonts/fonts.css";
-import LifeCheck from "../components/lifecheck.astro";
-import ScriptJwt from "../components/scriptjwt.astro";
-import ScriptHtmxBearer from "../components/scripthtmxbearer.astro";
+import Header from "./header.astro"; // Composant header rangé dans layout
+import Footer from "./footer.astro"; // Composant footer rangé dans layout
+import "../fonts/fonts.css"; // Importation des polices
+import LifeCheck from "../components/lifecheck.astro"; // Composant qui surveille l'état du serveur distant
+import ScriptJwt from "../components/scriptjwt.astro"; // Composant contenant le script pour le JWT
+import ScriptHtmxBearer from "../components/scripthtmxbearer.astro"; //"" pour rajouter le token aux requêtes HTMX
 
 // Définit une interface TypeScript pour les props.
 interface Props {
@@ -15,11 +15,13 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
 ---
 
 <!doctype html>
+<!-- initialisation des données globales d'alpine -->
 <html
   x-data="{
   open: false, 
   rolee: sessionStorage.getItem('role') || localStorage.getItem('role') || 'visiteur', 
   
+  // Actualise le rôle utilisateur en fonction de ses préférences de stockage
   setRole(newRole, storageType = 'sessionStorage') {
     this.rolee = newRole;
     console.log('Rôle mis à jour:', newRole);
@@ -95,7 +97,7 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
       h2,
       h3,
       h4 {
-        text-wrap: balance;
+        @apply text-balance;
       }
       /* personalisation de la scrollbar */
       ::-webkit-scrollbar {
@@ -144,6 +146,7 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
       </div>
     </main>
     <Footer />
-  </body><!-- Surveille l'état du backend -->
+  </body>
+  <!-- Surveille l'état du backend -->
   <LifeCheck />
 </html>
