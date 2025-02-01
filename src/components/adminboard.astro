@@ -25,7 +25,7 @@ import { apiUrl } from "../lib/constants";
           <tbody
             id="pendingEvents"
             hx-get={`${apiUrl}/admin/events/pending`}
-            hx-trigger="load"
+            hx-trigger="refresh from:body, load"
           >
           </tbody>
         </table>
@@ -46,7 +46,7 @@ import { apiUrl } from "../lib/constants";
           <tbody
             id="approvedEvents"
             hx-get={`${apiUrl}/admin/events/approved`}
-            hx-trigger="load"
+            hx-trigger="refresh from:body, load"
           >
           </tbody>
         </table>

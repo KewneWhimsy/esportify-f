@@ -60,7 +60,7 @@ const { apiEndPoint, color, colorHover } = Astro.props;
       <divevents-container
         hx-get={`${apiUrl}/api/${apiEndPoint}`}
         hx-target={`#${apiEndPoint}Container`}
-        hx-trigger="load"
+        hx-trigger="refresh from:body, load"
         hx-swap="innerHTML"
         hx-on-error="this.innerHTML = 'Erreur lors du chargement des événements';"
       >
