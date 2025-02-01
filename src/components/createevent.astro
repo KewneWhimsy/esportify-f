@@ -12,10 +12,12 @@ import { apiUrl } from "../lib/constants";
 
 <div class="rounded" id="createEvent" popover>
   <h2 class="bg-[#5e3554] text-right cursor-move mb-1">( popup déplaçable )</h2>
+  <!-- @ts-ignore -->
   <form
     id="formPopupCSS"
     class="inset-0 w-full rounded max-w-[900px] mx-auto items-center justify-center z-50 px-5 py-3 transition-opacity"
     hx-post={`${apiUrl}/api/events`}
+    {...{ "hx-on::after-request": "htmx.trigger('body', 'refresh')" }}
     hx-target="#form-message"
     hx-swap="innerHTML"
     hx-trigger="submit"
