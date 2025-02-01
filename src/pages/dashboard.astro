@@ -53,7 +53,7 @@ import Adminboard from "../components/adminboard.astro";
           Tableau de bord
         </h1>
         <h2 class="text-2xl font-semibold mt-20 mb-2 ml-4">
-          Mes événements favoris
+          Événements favoris
         </h2>
         <EventTimeline
           apiEndPoint="favorites"
@@ -70,7 +70,7 @@ import Adminboard from "../components/adminboard.astro";
         :class="{ 'hidden': rolee === 'visiteur' || rolee === 'joueur'}"
       >
         <Createevent />
-        <h2 class="text-2xl font-semibold mt-20 mb-2 ml-4">Mes créations</h2>
+        <h2 class="text-2xl font-semibold mt-20 mb-2 ml-4">Modifier mes créations</h2>
         <EventTimeline
           apiEndPoint="myevents"
           color="[#642b56]"
