@@ -11,8 +11,11 @@ import { apiUrl } from "../lib/constants";
 >
 
 <div class="rounded" id="createEvent" popover>
-  <h2 class="bg-[#5e3554] text-left cursor-move mb-1">( popup déplaçable )</h2>
-  <button class="text-right" popovertarget="createEvent">X</button>
+  <div class="flex justify-between">
+    <h2 class="bg-[#5e3554] text-left flex-1 pl-2 cursor-move mb-1">🖐️</h2>
+  <button class="text-xl px-2" popovertarget="createEvent">X</button>
+  </div>
+  
   <form
     id="formPopupCSS"
     class="inset-0 w-full rounded max-w-[900px] mx-auto items-center justify-center z-50 px-5 py-3 transition-opacity"
