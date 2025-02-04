@@ -1,0 +1,130 @@
+---
+import Layout from "../layouts/layout.astro";
+---
+
+<Layout title="test">
+    <!-- Zone d'action du popup avec Alpine.js -->
+
+  <!-- popup avec HTMX et Alpine.js -->
+  <div
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    x-transition:opacity
+  >
+    <div
+      id="popup-content"
+      class="rounded-lg w-full mx-2 max-w-2xl"
+      style="background: linear-gradient(to bottom, #1f191d, #121012);" 
+    >
+    <div
+  class="relative  border border-gray-300 rounded-lg shadow-lg overflow-y-auto"
+  >
+    <button class="absolute p-1 right-1 text-xl select-none">X</button>
+    <form
+    class="inset-0 w-full rounded max-w-[900px] max-h-[90vh] mx-auto items-center justify-center z-50 px-5 pt-3 transition-opacity"
+    hx-post="http://localhost/api/events/update/${
+      event.id
+    }"
+    hx-target="#form-messageup"
+    hx-swap="innerHTML"
+    class="space-y-4"
+  >
+    <!-- Titre -->
+    <div>
+      <label for="title" class="block text-sm font-medium"
+        >Titre</label
+      >
+      <input
+        type="text"
+        id="title"
+        name="title"
+        class="bg-[#161215] text-text w-full mt-1 border rounded px-3 py-2"
+      />
+    </div>
+
+    <!-- Description -->
+    <div>
+      <label for="description" class="block text-sm font-medium"
+        >Description</label
+      >
+      <textarea
+        id="description"
+        name="description"
+        class="bg-[#161215] text-text mt-1 border rounded px-3 py-2 w-full min-h-60 min-w-72"
+      >description</textarea>
+    </div>
+
+    <!-- Nombre de joueurs -->
+    <div>
+      <label for="players_count" class="block text-sm font-medium"
+        >Nombre de joueurs</label
+      >
+      <input
+        type="number"
+        id="players_count"
+        name="players_count"
+        min="2"
+        class="bg-[#161215] text-text w-full mt-1 border rounded px-3 py-2"
+      />
+    </div>
+
+    <!-- Date et heure de début -->
+    <div>
+      <label for="start_datetime" class="block text-sm font-medium"
+        >Date et heure de début</label
+      >
+      <input
+        type="datetime-local"
+        id="start_datetime"
+        name="start_datetime"
+        class="bg-[#161215] text-text w-full mt-1 border rounded px-3 py-2"
+      />
+    </div>
+
+    <!-- Date et heure de fin -->
+    <div>
+      <label for="end_datetime" class="block text-sm font-medium"
+        >Date et heure de fin</label
+      >
+      <input
+        type="datetime-local"
+        id="end_datetime"
+        name="end_datetime"
+        class="bg-[#161215] text-text w-full mt-1 border rounded px-3 py-2"
+      />
+    </div>
+    <div class="flex flex-col gap-4 justify-center">
+    <!-- Soumettre -->
+    <div>
+      <button
+        type="submit"
+        class="w-full bg-[#5e3554] hover:bg-yellow-600 hover:text-shadow px-4 py-2 mt-5 rounded transition-colors select-none"
+      >
+        Mettre à jour
+      </button>
+    </div>
+    <!-- Supprimer -->
+    
+      <button
+        type="button"
+        title="Supprimer"
+        class="ml-auto text-sm bg-red-900 gap-1 px-1 py-1 rounded hover:bg-red-800 transition-colors select-none"
+        
+      >
+      🔥
+      </button>
+      
+    
+    </div>
+    <!-- Message de retour -->
+    <div id="form-messageup" class="text-sm text-center mt-4"></div>
+    <style>
+    input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+      filter: invert(1); /* Icone blanche */
+    }
+    </style>
+    </div>
+  </div>
+</section>
+
+
+</Layout>
