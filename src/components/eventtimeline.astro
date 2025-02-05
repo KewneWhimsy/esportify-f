@@ -10,17 +10,8 @@ const { apiEndPoint, color, colorHover } = Astro.props;
 ---
 
 <section class="mb-12 select-none">
-  <div class="flex flex-col space-y-4 ml-4">
-    <div class="flex gap-3 my-2">
-      <button
-        hx-get={`${apiUrl}/api/${apiEndPoint}?sort=players_count`}
-        hx-target={`#${apiEndPoint}Container`}
-        hx-swap="innerHTML"
-        hx-on-error="this.innerHTML = 'Erreur lors du tri des événements';"
-        class={`px-2 py-1 transition-colors rounded ${color ? `bg-${color}` : ''} ${colorHover ? `hover:bg-${colorHover}` : ''}`}
-      >
-        <p class="text-sm">Trier par joueurs</p>
-      </button>
+  <div class="flex flex-col space-y-4 ml-2">
+    <div class="flex gap-2 m-2">
       <button
         hx-get={`${apiUrl}/api/${apiEndPoint}?sort=start_datetime`}
         hx-target={`#${apiEndPoint}Container`}
@@ -29,6 +20,15 @@ const { apiEndPoint, color, colorHover } = Astro.props;
         class={`px-2 py-1 transition-colors rounded ${color ? `bg-${color}` : ''} ${colorHover ? `hover:bg-${colorHover}` : ''}`}
       >
         <p class="text-sm">Trier par date</p>
+      </button>
+      <button
+        hx-get={`${apiUrl}/api/${apiEndPoint}?sort=players_count`}
+        hx-target={`#${apiEndPoint}Container`}
+        hx-swap="innerHTML"
+        hx-on-error="this.innerHTML = 'Erreur lors du tri des événements';"
+        class={`px-2 py-1 transition-colors rounded ${color ? `bg-${color}` : ''} ${colorHover ? `hover:bg-${colorHover}` : ''}`}
+      >
+        <p class="text-sm">Trier par joueurs</p>
       </button>
       <button
         x-show={`'${apiEndPoint}' !== 'myevents'`}

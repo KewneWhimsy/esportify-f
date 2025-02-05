@@ -10,9 +10,9 @@ import { apiUrl } from "../lib/constants";
   >Créer un événement</button
 >
 
-<div class="rounded max-h-[90vh]" id="createEvent" popover>
+<div class="rounded max-h-[95vh] border border-popupEvent overflow-y-auto" id="createEvent" popover>
   <div class="flex justify-between">
-    <h2 class="bg-[#5e3554] text-left flex-1 pl-2 cursor-move select-none mb-1 overflow-y-auto">🖐️</h2>
+    <h2 class="bg-popupEvent text-left flex-1 pl-2 cursor-move select-none mb-1">🖐️</h2>
   <button class="text-xl px-2" popovertarget="createEvent">X</button>
   </div>
   
@@ -103,7 +103,7 @@ import { apiUrl } from "../lib/constants";
     <div>
       <button
         type="submit"
-        class="w-full bg-[#5e3554] hover:bg-yellow-600 hover:text-shadow text-white px-4 py-2 mt-5 rounded transition-colors"
+        class="w-full bg-popupEvent hover:bg-yellow-600 hover:text-shadow text-white px-4 py-2 mt-5 rounded transition-colors"
       >
         Créer l'événement
       </button>

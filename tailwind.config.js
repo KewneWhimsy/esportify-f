@@ -16,6 +16,7 @@ export default {
         link: "#FF4D4D", // rouge vif mais non agressif
         linkHover: "#FF0000", // rouge plus sombre
         myEvent: "#ac6a9a", // mauve clair
+        popupEvent: "#5e3554", // mauve
       },
       fontFamily: {
         body: ["system-ui", "sans-serif", "Arial"], // police de base des appareils ou autre police lisible et universel
