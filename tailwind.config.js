@@ -33,18 +33,19 @@ export default {
   safelist: [
     'bg-[#26232A]', // Force la conservation de cette classe
     'hover:scale-105', // Et toute autre classe dynamique
-    'mt-4', 'px-4', 'px-1', 'py-2', 'py-3', 'text-2xl', 'font-bold', 'mb-4',
-    'font-heading', 'text-heading', 'border', 'bg-background', 'mx-4', 'mx-2', 'right-1',
-    'p-6', 'rounded-lg', 'shadow-lg', 'h-full', 'w-full', 'text-sm','absolute', 'sm:p-2',
-    'text-gray-400', 'text-lg', 'leading-tight', 'mb-2', 'bg-[#161215]', 'relative', 'hover:bg-red-800 ',
-    'justify-between', 'border-[#E5E7EB]', 'p-4', 'bg-red-800', 'mr-auto',  'p-3', 'min-h-60', 'min-w-72',
-    'w-64', 'shadow-md', 'transition-transform', 'scale-105', 'flex-grow', 'overflow-y-auto',
-    'cursor-pointer', 'flex-shrink-0', 'gap-0.5', 'hidden', 'bg-blue-500', 'hover:bg-blue-600', 'rounded', 'bg-opacity-80',
-    'bg-red-600', 'text-red-500', 'hover:bg-red-700', 'mt-10', 'border-gray-300', 'ml-auto', 'text-green-500',
-    'px-3', 'py-1', 'bg-orange-600', 'hover:bg-orange-700', 'bg-green-600', 'hover:bg-green-700', 'bg-red-900',
-    'gap-2', 'gap-4', 'text-yellow-600', 'text-green-600', 'bg-gray-500', 'hover:bg-gray-700' ,'transition-colors', 
-    'bg-blue-900', 'hover:bg-yellow-600', 'text-myEvent', 'ml-1', 'hover:text-yellow-600', 'hover:bg-[#532447]', 'bg-[#642b56]',
-    'max-w-2xl', 'p-2', 'self-end', 'mt-5', 'p-1', 'text-xl',
+    'scale-105', 'transition-transform', 'transition-colors', 'w-64', 'mr-2','px-1', 'right-2',
+    'mt-4', 'mt-5', 'mt-10', 'px-4', 'px-3', 'px-1', 'py-2', 'py-3', 'font-bold', 'mb-4',
+    'font-heading', 'text-heading', 'text-myEvent', 'border', 'bg-background', 'mx-4', 'mx-2', 'right-1',
+    'p-6', 'p-4', 'p-2', 'p-1', 'rounded-lg', 'shadow-lg', 'h-full', 'w-full','absolute', 'sm:p-2',
+    'text-sm','text-lg', 'text-xl', 'text-2xl', 'leading-tight', 'mb-2', 'bg-[#161215]', 'relative',
+    'justify-between', 'border-[#E5E7EB]', 'mr-auto',  'p-3', 'min-h-60', 'min-w-72',
+    'shadow-md', 'flex-grow', 'overflow-y-auto', 'gap-2', 'gap-4',
+    'cursor-pointer', 'flex-shrink-0', 'gap-0.5', 'hidden', 'rounded', 'bg-opacity-80',
+    'bg-red-600', 'bg-red-800', 'bg-red-900', 'hover:bg-red-700', 'hover:bg-red-800 ', 'ml-auto',
+    'py-1', 'bg-orange-600', 'hover:bg-orange-700', 'bg-green-600', 'hover:bg-green-700',  'border-gray-300', 'bg-gray-500', 'hover:bg-gray-700',
+    'text-gray-400', 'hover:text-yellow-600', 'text-yellow-600', 'text-red-500', 'text-green-500', 'text-green-600', 
+    'bg-blue-900', 'bg-blue-500', 'hover:bg-blue-600', 'hover:bg-yellow-600', 'ml-1', 'hover:bg-[#532447]', 'bg-[#642b56]',
+    'max-w-2xl', 'self-end',
   ],
   plugins: [
     function ({ addUtilities }) {
