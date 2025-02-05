@@ -35,7 +35,7 @@ export default {
     'hover:scale-105', // Et toute autre classe dynamique
     'mt-4', 'px-4', 'px-1', 'py-2', 'py-3', 'text-2xl', 'font-bold', 'mb-4',
     'font-heading', 'text-heading', 'border', 'bg-background', 'mx-4', 'mx-2', 'right-1',
-    'p-6', 'rounded-lg', 'shadow-lg', 'h-full', 'w-full', 'text-sm','absolute',
+    'p-6', 'rounded-lg', 'shadow-lg', 'h-full', 'w-full', 'text-sm','absolute', 'sm:p-2',
     'text-gray-400', 'text-lg', 'leading-tight', 'mb-2', 'bg-[#161215]', 'relative', 'hover:bg-red-800 ',
     'justify-between', 'border-[#E5E7EB]', 'p-4', 'bg-red-800', 'mr-auto',  'p-3', 'min-h-60', 'min-w-72',
     'w-64', 'shadow-md', 'transition-transform', 'scale-105', 'flex-grow', 'overflow-y-auto',
