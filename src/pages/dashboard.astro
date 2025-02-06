@@ -49,10 +49,10 @@ import Adminboard from "../components/adminboard.astro";
         x-show="rolee !== undefined && rolee !== 'visiteur'"
         :class="{ 'hidden': rolee === 'visiteur'}"
       >
-        <h1 class="text-5xl px-3 font-hero text-heading mb-6 my-14">
+        <h1 class="text-5xl px-3 font-hero text-heading mb-6 my-14 select-none">
           Tableau de bord
         </h1>
-        <h2 class="text-2xl font-semibold mt-20 mb-2 ml-4">
+        <h2 class="text-2xl font-semibold mt-20 mb-2 ml-4 select-none">
           Événements favoris
         </h2>
         <EventTimeline
@@ -70,7 +70,7 @@ import Adminboard from "../components/adminboard.astro";
         :class="{ 'hidden': rolee === 'visiteur' || rolee === 'joueur'}"
       >
         <Createevent />
-        <h2 class="text-2xl font-semibold mt-20 mb-2 ml-4">Modifier mes créations</h2>
+        <h2 class="text-2xl font-semibold mt-20 mb-2 ml-4 select-none">Modifier mes créations</h2>
         <EventTimeline
           apiEndPoint="myevents"
           color="[#642b56]"
@@ -116,7 +116,7 @@ import Adminboard from "../components/adminboard.astro";
         
         
       </section>
-      <h2 class="text-2xl font-semibold mb-2 ml-2">Tout les événements</h2>
+      <h2 class="text-2xl font-semibold mb-2 ml-2 select-none">Tout les événements</h2>
     </section>
     <Eventtab />
   </PopupEvent>

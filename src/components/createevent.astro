@@ -6,16 +6,26 @@ import { apiUrl } from "../lib/constants";
   popovertarget="createEvent"
   id="creevent"
   class="max-w-xl mx-auto p-6 bg-[#4d2d45] hover:scale-110 transition-transform rounded-lg shadow-lg
-  text-2xl font-semibold flex self-center mb-12"
+  text-2xl font-semibold flex self-center mb-12 select-none"
   >Créer un événement</button
 >
 
-<div class="rounded resize max-h-[95vh] border border-popupEvent overflow-y-auto" id="createEvent" popover>
+<div
+  class="rounded resize max-h-[95vh] border border-popupEvent overflow-y-auto"
+  id="createEvent"
+  popover
+>
   <div class="flex justify-between">
-    <h2 class="bg-popupEvent text-left flex-1 pl-2 cursor-move select-none mb-1">🖐️</h2>
-  <button class="text-xl px-2 select-none" popovertarget="createEvent">X</button>
+    <h2
+      class="bg-popupEvent text-left flex-1 pl-2 cursor-move select-none mb-1"
+    >
+      🖐️
+    </h2>
+    <button class="text-xl px-2 select-none" popovertarget="createEvent"
+      >X</button
+    >
   </div>
-  
+
   <form
     id="formPopupCSS"
     class="inset-0 w-full rounded max-w-[900px] mx-auto items-center justify-center z-50 px-5 py-2 transition-opacity"
@@ -51,7 +61,8 @@ import { apiUrl } from "../lib/constants";
         name="description"
         required
         class="bg-[#161215] text-text w-full border flex-1 rounded px-3 py-2 min-h-60 min-w-72"
-        placeholder="Description de l'événement">
+        placeholder="Description de l'événement"
+      >
       </textarea>
     </div>
 
@@ -134,14 +145,30 @@ import { apiUrl } from "../lib/constants";
     if (isDragging) {
       offsetX = e.clientX - startX;
       offsetY = e.clientY - startY;
-      // 🔥 Ajout de la contrainte pour ne pas dépasser le haut de l'écran
-      if (offsetY < -140) offsetY = -140;
+
+      // Obtenir les dimensions du popup
+      const rect = popupMovable.getBoundingClientRect();
+     
+      // Empêcher le popup de dépasser le haut de l'écran
+      if (rect.top + e.clientY < 0) {
+        offsetY = -rect.top - e.clientY + offsetY;
+        // rect.top est la position absolue du haut du popup par rapport à l’écran.
+        // e.clientY est la position absolue de la souris.
+        // offsetY est l’offset de déplacement appliqué par transform.
+      }
       // Utilisation de `transform` pour un déplacement fluide
       popupMovable.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
     }
   });
 
-  document.addEventListener("mouseup", () => {
+  document.addEventListener("mouseup", (x) => {
+    // Obtenir les dimensions du popup
+      const rect = popupMovable.getBoundingClientRect();
+
+      // Empêcher le popup de dépasser le haut de l'écran
+      if (rect.top + x.clientY < 0) {
+        offsetY = -rect.top - x.clientY + offsetY;
+      }
     isDragging = false;
     popupMovable.classList.remove("grabbing");
   });
