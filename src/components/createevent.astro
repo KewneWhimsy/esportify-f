@@ -16,14 +16,12 @@ import { apiUrl } from "../lib/constants";
   popover
 >
   <div class="flex justify-between">
-    <h2
-      class="bg-popupEvent text-left flex-1 pl-2 cursor-move select-none mb-1"
-    >
+    <h2 class="bg-popupEvent text-left flex-1 pl-2 cursor-move select-none mb-1">
       🖐️
     </h2>
-    <button class="text-xl px-2 select-none" popovertarget="createEvent"
-      >X</button
-    >
+    <button class="text-xl px-2 select-none" popovertarget="createEvent">
+      X
+    </button>
   </div>
 
   <form
@@ -148,7 +146,7 @@ import { apiUrl } from "../lib/constants";
 
       // Obtenir les dimensions du popup
       const rect = popupMovable.getBoundingClientRect();
-     
+
       // Empêcher le popup de dépasser le haut de l'écran
       if (rect.top + e.clientY < 0) {
         offsetY = -rect.top - e.clientY + offsetY;
@@ -163,12 +161,12 @@ import { apiUrl } from "../lib/constants";
 
   document.addEventListener("mouseup", (x) => {
     // Obtenir les dimensions du popup
-      const rect = popupMovable.getBoundingClientRect();
+    const rect = popupMovable.getBoundingClientRect();
 
-      // Empêcher le popup de dépasser le haut de l'écran
-      if (rect.top + x.clientY < 0) {
-        offsetY = -rect.top - x.clientY + offsetY;
-      }
+    // Empêcher le popup de dépasser le haut de l'écran
+    if (rect.top + x.clientY < 0) {
+      offsetY = -rect.top - x.clientY + offsetY;
+    }
     isDragging = false;
     popupMovable.classList.remove("grabbing");
   });
@@ -182,8 +180,19 @@ import { apiUrl } from "../lib/constants";
   }
   #createEvent {
     @apply bg-[#5e3554] text-text;
+    opacity: 0;
+    transition:
+      display 0.3s,
+      opacity 0.3s;
+    transition-behavior: allow-discrete;
+    &:popover-open {
+      display: block;
+      opacity: 1;
+      @starting-style {
+        opacity: 0;
+      }
+    }
   }
-
   input,
   textarea {
     border: 1px solid #4d2d45; /* Bordure personnalisée */
