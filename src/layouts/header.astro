@@ -1,47 +1,82 @@
-<header class="bg-[#1f191d] p-4 select-none" >
-  <nav class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+<header class="bg-[#1f191d] p-4 select-none">
+  <nav
+    class="container mx-auto flex flex-col md:flex-row justify-between items-center"
+  >
     <a href="index.html" class="flex items-center">
       <img src="logo-header.png" alt="Logo Esportify" class="h-20 w-auto" />
     </a>
-    <button @click="open = !open" class="md:hidden text-2xl mb-2 mt-4">
+    <input type="checkbox" id="menu-toggle" class="hidden" />
+    <label
+      for="menu-toggle"
+      class="md:hidden text-2xl mb-2 mt-4 cursor-pointer"
+    >
       ☰
-    </button>
-    <div :class="{ 'hidden': !open, 'block': open }" class="md:flex space-x-4 font-bold">
-      <ul class="flex transition-all duration-300 flex-col items-center md:flex-row gap-3">
+    </label>
+    <div
+      id="menu"
+      class="md:flex md:space-x-4 font-bold md:w-auto bg-[#1f191d]
+        overflow-hidden transition-[max-height]
+        duration-300 ease-in-out"
+    >
+      <ul
+        class="flex transition-all duration-300 flex-col items-center md:flex-row gap-3"
+      >
         <li>
-          <a href="evenements.html" class="p-2 transition-colors duration-300 hover:text-red-600">
+          <a
+            href="evenements.html"
+            class="p-2 transition-colors duration-300 hover:text-red-600"
+          >
             Événements
           </a>
         </li>
-        
+
         <!-- Afficher Connexion si rôle est "visiteur" et que "rolee" est défini -->
         <li x-show="rolee === undefined || rolee === 'visiteur'">
-          <a x-transition.opacity href="connexion.html" class="p-2 transition-colors duration-300 hover:text-red-600">
+          <a
+            x-transition.opacity
+            href="connexion.html"
+            class="p-2 transition-colors duration-300 hover:text-red-600"
+          >
             Connexion
           </a>
         </li>
 
         <!-- Afficher Mon Esportify si rôle n'est pas "visiteur" et que "rolee" est défini -->
-        <li x-show="rolee !== undefined && rolee !== 'visiteur'" x-cloak
-        class="flex">
-          <a x-transition.opacity href="dashboard.html" class="p-2 transition-colors duration-300 hover:text-red-600">
+        <li
+          x-show="rolee !== undefined && rolee !== 'visiteur'"
+          x-cloak
+          class="flex"
+        >
+          <a
+            x-transition.opacity
+            href="dashboard.html"
+            class="p-2 transition-colors duration-300 hover:text-red-600"
+          >
             Mon Esportify
           </a>
-          <div x-data="{ 
+          <div
+            x-data="{ 
             logout() { 
                 localStorage.removeItem('jwt');
                 sessionStorage.removeItem('jwt');
                 window.location.href = 'index.html'; // Redirige vers la page d'acceuil
             }
-        }">
-            <button @click="logout" class="p-2 transition-colors duration-300 hover:text-red-600">
-                Déconnexion
+        }"
+          >
+            <button
+              @click="logout"
+              class="p-2 transition-colors duration-300 hover:text-red-600"
+            >
+              Déconnexion
             </button>
-        </div>
+          </div>
         </li>
 
         <li>
-          <a href="test.html" class="p-2 transition-colors duration-300 hover:text-red-600">
+          <a
+            href="test.html"
+            class="p-2 transition-colors duration-300 hover:text-red-600"
+          >
             Contact
           </a>
         </li>
@@ -50,7 +85,21 @@
   </nav>
 </header>
 <style>
+  /* En mobile, le menu est caché par défaut */
+  #menu {
+    max-height: 0;
+  }
+  /* Le menu se déplie quand la checkbox est cochée */
+  #menu-toggle:checked ~ #menu {
+    max-height: 500px;
+  }
+  /* En desktop, le menu est toujours visible */
+  @media (min-width: 768px) {
+    #menu {
+      max-height: none !important;
+    }
+  }
   [x-cloak] {
-  display: none !important;
+    display: none !important;
   }
 </style>
