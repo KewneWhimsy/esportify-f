@@ -113,12 +113,10 @@ import Adminboard from "../components/adminboard.astro";
         x-show="rolee !== undefined && rolee === 'orga'|| rolee === 'admin' || rolee === 'joueur'"
         :class="{ 'hidden': rolee === 'visiteur' }"
       >
-        
-        
+        <h2 class="text-2xl font-semibold mb-2 ml-2 select-none">Tout les événements</h2>
+        <Eventtab />
       </section>
-      <h2 class="text-2xl font-semibold mb-2 ml-2 select-none">Tout les événements</h2>
     </section>
-    <Eventtab />
   </PopupEvent>
   <style>
     [x-cloak] {
