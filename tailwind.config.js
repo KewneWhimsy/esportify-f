@@ -32,8 +32,8 @@ export default {
   },
   safelist: [
     'bg-[#26232A]', // Force la conservation de cette classe
-    'hover:scale-105', // Et toute autre classe dynamique
-    'scale-105', 'transition-transform', 'transition-colors', 'w-64', 'mr-2','px-1', 'right-2',
+    'motion-safe:hover:scale-105', // Et toute autre classe dynamique
+    'scale-105', 'motion-safe:transition-transform', 'transition-colors', 'w-64', 'mr-2','px-1', 'right-2',
     'mt-4', 'mt-5', 'mt-10', 'px-4', 'px-3', 'px-1', 'py-2', 'py-3', 'font-bold', 'mb-4',
     'font-heading', 'text-heading', 'text-myEvent', 'border', 'bg-background', 'mx-4', 'mx-2', 'right-1',
     'p-6', 'p-4', 'p-2', 'p-1', 'rounded-lg', 'shadow-lg', 'h-full', 'w-full','absolute', 'sm:p-2',

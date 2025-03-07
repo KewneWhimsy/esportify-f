@@ -1,7 +1,7 @@
 ---
+import "../fonts/fonts.css"; // Importation des polices
 import Header from "./header.astro"; // Composant header rangé dans layout
 import Footer from "./footer.astro"; // Composant footer rangé dans layout
-import "../fonts/fonts.css"; // Importation des polices
 import LifeCheck from "../components/lifecheck.astro"; // Composant qui surveille l'état du serveur distant
 import ScriptJwt from "../components/scriptjwt.astro"; // Composant contenant le script pour le JWT
 import ScriptHtmxBearer from "../components/scripthtmxbearer.astro"; //"" pour rajouter le token aux requêtes HTMX
@@ -66,17 +66,14 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"
     ></script>
     <!-- Charge htmx pour l'interactivité Serveur -->
-    <script
-      defer
-      src="https://unpkg.com/htmx.org@2.0.2"
-      integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ"
-      crossorigin="anonymous"></script>
+    <script defer src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+
     <!-- Configure htmx pour autoriser les requêtes vers des domaines externes + Transition pendant les swaps  -->
     <meta
       name="htmx-config"
       content='{"selfRequestsOnly":false,"globalViewTransitions":true}'
     />
-    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/ws.js"></script>
+    <script defer src="https://unpkg.com/htmx.org@1.9.12/dist/ext/ws.js"></script>
 
     <!-- Décodage du JWT et émission de l'événement "role-changed" -->
     <ScriptJwt />
