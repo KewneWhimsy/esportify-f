@@ -2,7 +2,7 @@
 import "../fonts/fonts.css"; // Importation des polices
 import Header from "./header.astro"; // Composant header rangé dans layout
 import Footer from "./footer.astro"; // Composant footer rangé dans layout
-import LifeCheck from "../components/lifecheck.astro"; // Composant qui surveille l'état du serveur distant
+//import LifeCheck from "../components/lifecheck.astro"; // Composant qui surveille l'état du serveur distant
 import ScriptJwt from "../components/scriptjwt.astro"; // Composant contenant le script pour le JWT
 import ScriptHtmxBearer from "../components/scripthtmxbearer.astro"; //"" pour rajouter le token aux requêtes HTMX
 
@@ -18,7 +18,6 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
 <!-- initialisation des données globales d'alpine -->
 <html
   x-data="{
-  open: false, 
   rolee: sessionStorage.getItem('role') || localStorage.getItem('role') || 'visiteur', 
   
   // Actualise le rôle utilisateur en fonction de ses préférences de stockage
@@ -83,7 +82,7 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
     <script defer src="https://unpkg.com/htmx.org@1.9.12/dist/ext/ws.js"
     ></script>
 
-    <!-- Décodage du JWT et émission de l'événement "role-changed" -->
+    <!-- Décodage du JWT, émission de l'événement "role-changed" -->
     <ScriptJwt />
     <!-- ajoute le token aux requêtes serveur de htmx -->
     <ScriptHtmxBearer />
@@ -140,6 +139,11 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
       @view-transition {
         navigation: auto; /* enabled! */
       }
+
+      /* Attribut qui Cache l'élément jusqu'à l'initialisation d'Alpine */
+      [x-cloak] {
+        display: none !important;
+      }
     </style>
   </head>
 
@@ -151,8 +155,5 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
       </main>
       <Footer />
     </div>
-  </body>
-
-  <!-- Surveille l'état du backend -->
-  <!-- <LifeCheck /> -->
+  </body><!-- Surveille l'état du backend --><!-- <LifeCheck /> -->
 </html>

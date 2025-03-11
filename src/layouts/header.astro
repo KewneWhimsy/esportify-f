@@ -8,7 +8,7 @@
     <input type="checkbox" id="menu-toggle" class="hidden" />
     <label
       for="menu-toggle"
-      class="md:hidden text-2xl mb-2 mt-4 cursor-pointer"
+      class="md:hidden text-2xl mt-4 cursor-pointer"
     >
       ☰
     </label>
@@ -24,7 +24,7 @@
         <li>
           <a
             href="evenements.html"
-            class="p-2 transition-colors duration-300 hover:text-red-600"
+            class="px-2 pb-2 mt-4 md:mt-0 md:py-2 flex align-middle transition-colors duration-300 hover:text-red-600"
           >
             Événements
           </a>
@@ -35,7 +35,7 @@
           <a
             x-transition.opacity
             href="connexion.html"
-            class="p-2 transition-colors duration-300 hover:text-red-600"
+            class="p-2 flex align-middle transition-colors duration-300 hover:text-red-600"
           >
             Connexion
           </a>
@@ -50,7 +50,7 @@
           <a
             x-transition.opacity
             href="dashboard.html"
-            class="p-2 transition-colors duration-300 hover:text-red-600"
+            class="p-2 flex align-middle transition-colors duration-300 hover:text-red-600"
           >
             Mon Esportify
           </a>
@@ -65,7 +65,7 @@
           >
             <button
               @click="logout"
-              class="p-2 transition-colors duration-300 hover:text-red-600"
+              class="p-2 flex align-middle transition-colors duration-300 hover:text-red-600"
             >
               Déconnexion
             </button>
@@ -75,7 +75,7 @@
         <li>
           <a
             href="test.html"
-            class="p-2 transition-colors duration-300 hover:text-red-600"
+            class="p-2 flex align-middle transition-colors duration-300 hover:text-red-600"
           >
             Contact
           </a>
@@ -98,8 +98,5 @@
     #menu {
       max-height: none !important;
     }
-  }
-  [x-cloak] {
-    display: none !important;
   }
 </style>

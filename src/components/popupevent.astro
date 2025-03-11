@@ -8,6 +8,7 @@
     class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
     x-transition:opacity
     @click.self="isOpen = false"
+    x-cloak
   >
     <div
       x-show="isOpen"
@@ -22,6 +23,7 @@
       x-transition:leave-end="opacity-0 scale-90"
       hx-target="this"
       hx-swap="innerHTML"
+      x-cloak
     >
     </div>
   </div>
