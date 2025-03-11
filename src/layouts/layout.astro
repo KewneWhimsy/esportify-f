@@ -52,7 +52,10 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
     <!-- Fournit une description du site pour les moteurs de recherche -->
     <meta name="description" content="Esportify" />
     <!-- adapte la largeur de la page à celle de l'écran, force le zoom initial à 100% -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <!-- Indique le générateur du site (Astro) -->
     <meta name="generator" content={Astro.generator} />
     <!-- îcone de l'onglet du navigateur et google -->
@@ -65,15 +68,20 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"
     ></script>
-    <!-- Charge htmx pour l'interactivité Serveur -->
-    <script defer src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
 
+    <!-- Charge htmx pour l'interactivité Serveur -->
+    <script
+      defer
+      src="https://unpkg.com/htmx.org@2.0.4"
+      integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+      crossorigin="anonymous"></script>
     <!-- Configure htmx pour autoriser les requêtes vers des domaines externes + Transition pendant les swaps  -->
     <meta
       name="htmx-config"
       content='{"selfRequestsOnly":false,"globalViewTransitions":true}'
     />
-    <script defer src="https://unpkg.com/htmx.org@1.9.12/dist/ext/ws.js"></script>
+    <script defer src="https://unpkg.com/htmx.org@1.9.12/dist/ext/ws.js"
+    ></script>
 
     <!-- Décodage du JWT et émission de l'événement "role-changed" -->
     <ScriptJwt />
@@ -136,14 +144,15 @@ const { title } = Astro.props; // Extrait 'title' définit lors de l'utilisation
   </head>
 
   <body class="min-h-screen flex flex-col">
-    <main class="flex-1">
-      <Header />
-      <div id="chatcontain">
+    <Header />
+    <div class="contents" id="chatcontain">
+      <main class="flex-1">
         <slot />
-      </div>
-    </main>
-    <Footer />
+      </main>
+      <Footer />
+    </div>
   </body>
+
   <!-- Surveille l'état du backend -->
-  <LifeCheck />
+  <!-- <LifeCheck /> -->
 </html>

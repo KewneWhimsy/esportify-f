@@ -1,182 +1,40 @@
 ---
-import { apiUrl } from "../lib/constants";
+import Layout from "../layouts/layout.astro";
 ---
 
-<button
-  popovertarget="createEvent"
-  id="creevent"
-  class="max-w-xl mx-auto p-6 bg-[#4d2d45] hover:scale-110 transition-transform rounded-lg shadow-lg
-  text-2xl font-semibold flex self-center mb-12"
-  >Créer un événement</button
->
+<Layout title="test">
+<!-- Express -->
+  <div class="p-4 flex flex-col">
+    <!-- Carte pour l'événement -->
+    <div class="bg-[#1e1b1f] p-3 rounded-lg shadow-lg mb-2 max-w-md">
+      <div class="flex justify-between">
+        <h1 class="text-xl font-bold mb-2 text-[#e4e4e4]">TITRE - Room</h1>
+        <p><strong class="text-[#e4e4e4]">Organisateur :</strong> orga</p>
 
-<div class="rounded resize max-h-[95vh] border border-popupEvent overflow-y-auto" id="createEvent" popover>
-  <div class="flex justify-between">
-    <h2 class="bg-popupEvent text-left flex-1 pl-2 cursor-move select-none mb-1">🖐️</h2>
-  <button class="text-xl px-2 select-none" popovertarget="createEvent">X</button>
+      
+      <p><strong class="text-[#e4e4e4]">Début :</strong> début</p>
+      <p><strong class="text-[#e4e4e4]">Fin :</strong> fin</p>
+    </div>
+
+    <!-- Zone du Chat -->
+    <div hx-ext="ws" ws-connect="wss://esportify-backend.onrender.com/api/room/chat/1/1" class=" flex flex-col h-[600px]">
+      <div id="notifications" class="mb-4 text-red-400"></div>
+
+      <!-- Fenêtre des messages -->
+      <div id="chat_room" class="flex-grow overflow-y-auto bg-[#222] p-4 rounded-lg max-h-screen">
+        <ul id="chat_messages" class="space-y-2 text-gray-300"></ul>
+      </div>
+
+      <!-- Formulaire d'envoi -->
+      <form id="chatForm" ws-send class="flex items-center mt-4 gap-3">
+        <input class="bg-[#161215] border p-3 rounded w-full focus:outline-none" 
+        id="messageInput" autocomplete="off" name="chat_message" 
+        placeholder="Écrivez votre message..." required
+        >
+        <button class="bg-[#4d2d45] font-bold rounded p-3 transition-colors hover:bg-[#532447]" type="submit">
+          Envoyer
+        </button>
+      </form>
+    </div>
   </div>
-  
-  <form
-    id="formPopupCSS"
-    class="inset-0 w-full rounded max-w-[900px] mx-auto items-center justify-center z-50 px-5 py-2 transition-opacity"
-    hx-post={`${apiUrl}/api/events`}
-    {...{ "hx-on::after-request": "htmx.trigger('body', 'refresh')" }}
-    hx-target="#form-message"
-    hx-swap="innerHTML"
-    hx-trigger="submit"
-    class="space-y-4"
-  >
-    <!-- Titre -->
-    <div>
-      <label for="title" class="block text-sm mb-1 font-medium"
-        >Titre de l'événement</label
-      >
-      <input
-        type="text"
-        id="title"
-        name="title"
-        required
-        class="bg-[#161215] text-text w-full border rounded px-3 py-2"
-        placeholder="Titre de l'événement"
-      />
-    </div>
-
-    <!-- Description -->
-    <div>
-      <label for="description" class="block mb-1 mt-2 text-sm font-medium"
-        >Description
-      </label>
-      <textarea
-        id="description"
-        name="description"
-        required
-        class="bg-[#161215] text-text w-full border flex-1 rounded px-3 py-2 min-h-60 min-w-72"
-        placeholder="Description de l'événement">
-      </textarea>
-    </div>
-
-    <!-- Nombre de joueurs -->
-    <div>
-      <label for="players_count" class="block my-1 text-sm font-medium"
-        >Nombre de joueurs</label
-      >
-      <input
-        type="number"
-        id="players_count"
-        name="players_count"
-        required
-        min="2"
-        max="100"
-        class="bg-[#161215] text-text w-full border rounded px-3 py-2"
-        placeholder="Nombre de joueurs (minimum 2)"
-      />
-    </div>
-
-    <!-- Date et heure de début -->
-    <div>
-      <label for="start_datetime" class="block mb-1 mt-2 text-sm font-medium"
-        >Date et heure de début</label
-      >
-      <input
-        type="datetime-local"
-        id="start_datetime"
-        name="start_datetime"
-        required
-        class="bg-[#161215] text-text w-full border rounded px-3 py-2"
-      />
-    </div>
-
-    <!-- Date et heure de fin -->
-    <div>
-      <label for="end_datetime" class="block mb-1 mt-2 text-sm font-medium"
-        >Date et heure de fin</label
-      >
-      <input
-        type="datetime-local"
-        id="end_datetime"
-        name="end_datetime"
-        required
-        class="bg-[#161215] text-text w-full border rounded px-3 py-2"
-      />
-    </div>
-
-    <!-- Soumettre -->
-    <div>
-      <button
-        type="submit"
-        class="w-full bg-popupEvent hover:bg-yellow-600 hover:text-shadow text-white px-4 py-2 mt-5 rounded transition-colors"
-      >
-        Créer l'événement
-      </button>
-    </div>
-
-    <!-- Message de retour -->
-    <div id="form-message" class="text-sm text-center mt-2 mb-1"></div>
-  </form>
-</div>
-<script>
-  const popupMovable = document.getElementById("createEvent") as HTMLElement;
-  const header = popupMovable.querySelector("h2") as HTMLElement;
-  let isDragging = false;
-  let startX = 0;
-  let startY = 0;
-  let offsetX = 0,
-    offsetY = 0;
-
-  header.addEventListener("mousedown", (e) => {
-    isDragging = true;
-    startX = e.clientX - offsetX;
-    startY = e.clientY - offsetY;
-    popupMovable.classList.add("grabbing");
-  });
-
-  document.addEventListener("mousemove", (e) => {
-    if (isDragging) {
-      offsetX = e.clientX - startX;
-      offsetY = e.clientY - startY;
-  // Obtenir les dimensions du popup et de la fenêtre
-  const rect = popupMovable.getBoundingClientRect();
-    
-    // Limite supérieure : Ne pas dépasser le haut de l'écran
-    const minTop = -rect.height + 40; // Permet un léger débordement visible pour éviter un effet de saut
-    if (rect.top + offsetY < 0) {
-      offsetY = minTop; // Fixe le haut du popup à la limite autorisée
-    }
-      // Utilisation de `transform` pour un déplacement fluide
-      popupMovable.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-    }
-  });
-
-  document.addEventListener("mouseup", () => {
-    // Obtenir la position actuelle du popup
-    const rect = popupMovable.getBoundingClientRect();
-
-    // S'assurer que le haut du popup ne dépasse pas le haut de l'écran
-    if (rect.top < 0) {
-      // Réajuster offsetY pour fixer le popup au bord supérieur de l'écran
-      offsetY = -100;  // Coller le haut du popup au haut de la fenêtre
-    }
-    isDragging = false;
-    popupMovable.classList.remove("grabbing");
-  });
-</script>
-<style>
-  #creevent {
-    background: linear-gradient(to bottom, #642b56, #6e4262);
-  }
-  #formPopupCSS {
-    background: linear-gradient(to bottom, #251e23, #121012);
-  }
-  #createEvent {
-    @apply bg-[#5e3554] text-text;
-  }
-
-  input,
-  textarea {
-    border: 1px solid #4d2d45; /* Bordure personnalisée */
-  }
-
-  input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-    filter: invert(1); /* Icone blanche */
-  }
-</style>
+</Layout>

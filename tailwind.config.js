@@ -39,7 +39,7 @@ export default {
     'p-6', 'p-4', 'p-2', 'p-1', 'rounded-lg', 'shadow-lg', 'h-full', 'w-full','absolute', 'sm:p-2',
     'text-sm','text-lg', 'text-xl', 'text-2xl', 'leading-tight', 'mb-2', 'bg-[#161215]', 'relative',
     'justify-between', 'border-[#E5E7EB]', 'mr-auto',  'p-3', 'min-h-60', 'min-w-72',
-    'shadow-md', 'flex-grow', 'overflow-y-auto', 'gap-2', 'gap-4',
+    'shadow-md', 'flex-grow', 'overflow-y-auto', 'gap-2', 'gap-4', 'max-h-screen',
     'cursor-pointer', 'flex-shrink-0', 'gap-0.5', 'hidden', 'rounded', 'bg-opacity-80',
     'bg-red-600', 'bg-red-800', 'bg-red-900', 'hover:bg-red-700', 'hover:bg-red-800 ', 'ml-auto',
     'py-1', 'bg-orange-600', 'hover:bg-orange-700', 'bg-green-600', 'hover:bg-green-700',  'border-gray-300', 'bg-gray-500', 'hover:bg-gray-700',
