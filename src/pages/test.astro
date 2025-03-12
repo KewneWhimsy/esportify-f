@@ -2,39 +2,6 @@
 import Layout from "../layouts/layout.astro";
 ---
 
-<Layout title="test">
-<!-- Express -->
-  <div class="p-4 flex flex-col">
-    <!-- Carte pour l'événement -->
-    <div class="bg-[#1e1b1f] p-3 rounded-lg shadow-lg mb-2 max-w-md">
-      <div class="flex justify-between">
-        <h1 class="text-xl font-bold mb-2 text-[#e4e4e4]">TITRE - Room</h1>
-        <p><strong class="text-[#e4e4e4]">Organisateur :</strong> orga</p>
+<Layout title="contact">
 
-      
-      <p><strong class="text-[#e4e4e4]">Début :</strong> début</p>
-      <p><strong class="text-[#e4e4e4]">Fin :</strong> fin</p>
-    </div>
-
-    <!-- Zone du Chat -->
-    <div hx-ext="ws" ws-connect="wss://esportify-backend.onrender.com/api/room/chat/1/1" class=" flex flex-col h-[600px]">
-      <div id="notifications" class="mb-4 text-red-400"></div>
-
-      <!-- Fenêtre des messages -->
-      <div id="chat_room" class="flex-grow overflow-y-auto bg-[#222] p-4 rounded-lg max-h-screen">
-        <ul id="chat_messages" class="space-y-2 text-gray-300"></ul>
-      </div>
-
-      <!-- Formulaire d'envoi -->
-      <form id="chatForm" ws-send class="flex items-center mt-4 gap-3">
-        <input class="bg-[#161215] border p-3 rounded w-full focus:outline-none" 
-        id="messageInput" autocomplete="off" name="chat_message" 
-        placeholder="Écrivez votre message..." required
-        >
-        <button class="bg-[#4d2d45] font-bold rounded p-3 transition-colors hover:bg-[#532447]" type="submit">
-          Envoyer
-        </button>
-      </form>
-    </div>
-  </div>
 </Layout>
