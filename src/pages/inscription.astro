@@ -7,17 +7,27 @@ import Layout from "../layouts/layout.astro";
         username:'',
         email: '', 
         password: '', 
+        acceptTerms: false,
         error: '', 
         async register() { 
+            if (!this.acceptTerms) {
+                this.error = 'Vous devez accepter la politique de confidentialité pour vous inscrire.';
+                return;
+            }
             try {
                 const response = await fetch('https://esportify-backend.onrender.com/api/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username: this.username, email: this.email, password: this.password })
+                    body: JSON.stringify({ 
+                        username: this.username, 
+                        email: this.email, 
+                        password: this.password,
+                        acceptTerms: this.acceptTerms
+                    })
                 });
                 const data = await response.json();
                 if (response.ok) {
-                    alert('Inscription réussie !');
+                    alert('Inscription réussie !');
                     window.location.href = './connexion.html'; // Redirection
                 } else {
                     this.error = data.error || 'Erreur inconnue';
@@ -51,10 +61,26 @@ import Layout from "../layouts/layout.astro";
                 class="border p-2 rounded mb-2 w-full bg-[#161215]" 
                 required 
             />
-            <button type="submit" class="bg-red-700 hover:bg-red-800 px-4 py-2 rounded">
+            
+            <!-- Consentement RGPD -->
+            <div class="flex items-start space-x-2 mb-4 w-full">
+                <input 
+                    type="checkbox" 
+                    id="acceptTerms" 
+                    x-model="acceptTerms"
+                    class="mt-1"
+                />
+                <label for="acceptTerms" class="text-sm">
+                    J'accepte la <a href="contact.html" class="text-red-700 hover:text-red-600 underline">politique de confidentialité</a> et le traitement de mes données personnelles conformément au RGPD.
+                </label>
+            </div>
+            
+            <button type="submit" class="bg-red-700 hover:bg-red-800 px-4 py-2 rounded w-full">
                 S'inscrire
             </button>
             <div x-show="error" class="text-red-500 mt-2" x-text="error"></div>
+            
+            <a class="mt-16 text-red-800 text-sm hover:text-red-600 transition-colors" href="connexion.html">Déjà inscrit ?</a>
         </form>
     </div>     
 </Layout>

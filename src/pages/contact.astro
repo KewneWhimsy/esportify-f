@@ -1,0 +1,97 @@
+---
+import Layout from "../layouts/layout.astro";
+---
+
+<Layout title="contact">
+    <!-- Conteneur principal -->
+    <div class="max-w-[900px] mx-auto px-4">
+      <div class="text-center">
+        <!-- Avatar en cercle -->
+        <div class="flex mt-12 justify-center mx-auto mb-6">
+          <div
+            class="rounded-full border-4 border-gray-200 w-32 h-32 flex items-center justify-center"
+          >
+            <img
+              src="img/kw.webp"
+              alt="ma photo"
+              class="rounded-full w-full h-auto"
+            />
+          </div>
+        </div>
+
+        <!-- mon contact -->
+        <div>
+          <h2 class="text-xl mb-2">Nous contacter</h2>
+            <div class="mb-4">
+              <a
+                href="mailto:contact@esportify.com"
+                class="hover:text-heading transition-colors font-medium"
+              >
+                contact@esportify.com
+              </a>
+            </div>
+            <div class="mb-4">
+              <a
+                href="tel:+33612345678"
+                class="hover:text-heading transition-colors font-medium"
+              >
+                +33 6 12 34 56 78
+              </a>
+            </div>
+        </div>
+      </div>
+
+      <!--Politique de confidentialité-->
+      <section class="my-6 p-6 bg-[#161215] rounded-lg">
+        <h3 class="text-2xl mb-6 font-medium text-heading">Politique de confidentialité</h3>
+        
+        <div class="space-y-6 text-sm">
+          <div>
+            <h4 class="text-lg mb-2 font-medium">Données collectées</h4>
+            <p>
+              Esportify collecte uniquement les données nécessaires à votre identification et au bon fonctionnement du service :
+            </p>
+            <ul class="list-disc list-inside space-y-1 mt-2 ml-4">
+              <li>Nom d'utilisateur et adresse email lors de l'inscription</li>
+              <li>Informations d'authentification stockées localement (token JWT)</li>
+              <li>Préférences utilisateur liées aux événements et services</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-lg mb-2 font-medium">Stockage local</h4>
+            <p>Votre sécurité est notre priorité. Voici les mesures que nous prenons pour protéger vos données :</p>
+            <ul class="list-disc list-inside space-y-1 mt-2 ml-4">
+              <li>Utilisation d'un token JWT pour stocker l'ID et le rôle utilisateur</li>
+              <li>Stockage du token : localStorage (persistant) ou sessionStorage (temporaire) selon votre choix</li>
+              <li>La déconnexion supprime le token de manière sécurisée</li>
+              <li>Mot de passe crypté avant stockage dans la base de données</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-lg mb-2 font-medium">Vos droits RGPD</h4>
+            <p>Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez des droits suivants :</p>
+            <ul class="list-disc list-inside space-y-1 mt-2 ml-4">
+              <li>Droit d'accès à vos données personnelles</li>
+              <li>Droit de rectification et de mise à jour de vos données</li>
+              <li>Droit à l'effacement (droit à l'oubli)</li>
+              <li>Droit d'opposition au traitement de vos données</li>
+              <li>Droit à la portabilité de vos données</li>
+            </ul>
+            <p class="mt-2">Pour exercer ces droits, contactez-nous à <a href="mailto:dpo@esportify.com" class="text-red-700 hover:text-red-600 underline">josshanel@gmail.com</a></p>
+          </div>
+
+          <div>
+            <h4 class="text-lg mb-2 font-medium">Durée de conservation</h4>
+            <p>Vos données sont conservées :</p>
+            <ul class="list-disc list-inside space-y-1 mt-2 ml-4">
+              <li>Token JWT dans sessionStorage : jusqu'à la fermeture de l'onglet ou du navigateur</li>
+              <li>Token JWT dans localStorage : jusqu'à la déconnexion explicite ou suppression des données de navigation</li>
+              <li>Données de compte : tant que votre compte reste actif (possibilité de suppression sur demande)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+</Layout>
