@@ -71,16 +71,16 @@ import Layout from "../layouts/layout.astro";
                     class="mt-1"
                 />
                 <label for="acceptTerms" class="text-sm">
-                    J'accepte la <a href="contact.html" class="text-red-700 hover:text-red-600 underline">politique de confidentialité</a> et le traitement de mes données personnelles conformément au RGPD.
+                    J'accepte la <a href="contact.html" class="text-red-700 hover:text-red-600 underline transition-colors">politique de confidentialité</a> et le traitement de mes données personnelles conformément au RGPD.
                 </label>
             </div>
             
-            <button type="submit" class="bg-red-700 hover:bg-red-800 px-4 py-2 rounded w-full">
+            <button type="submit" class="bg-red-700 hover:bg-red-800 px-4 py-2 rounded w-full transition-colors">
                 S'inscrire
             </button>
             <div x-show="error" class="text-red-500 mt-2" x-text="error"></div>
             
-            <a class="mt-16 text-red-800 text-sm hover:text-red-600 transition-colors" href="connexion.html">Déjà inscrit ?</a>
+            <a class="mt-6 text-red-800 text-sm hover:text-red-600 transition-colors" href="connexion.html">Déjà inscrit ?</a>
         </form>
     </div>     
 </Layout>
