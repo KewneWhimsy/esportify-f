@@ -2,7 +2,7 @@
 import Layout from "../layouts/layout.astro";
 ---
 
-<Layout title="contact">
+<Layout title="Confidentialité">
     <!-- Conteneur principal -->
     <div class="max-w-[900px] mx-auto px-4">
       <div class="text-center">
@@ -22,14 +22,15 @@ import Layout from "../layouts/layout.astro";
         <!-- mon contact -->
         <div>
           <h2 class="text-xl mb-2">Nous contacter</h2>
-            <div class="mb-4">
-              <a
-                href="mailto:contact@esportify.com"
-                class="hover:text-heading transition-colors font-medium"
+            <p class="mb-4">
+              <button 
+                type="button" 
+                popovertarget="contactDPO" 
+                class="hover:text-heading transition-colors font-medium cursor-pointer"
               >
                 contact@esportify.com
-              </a>
-            </div>
+              </button>
+            </p>
             <div class="mb-4">
               <a
                 href="tel:+33612345678"
@@ -47,25 +48,64 @@ import Layout from "../layouts/layout.astro";
         
         <div class="space-y-6 text-sm">
           <div>
+            <h4 class="text-lg mb-2 font-medium">Introduction</h4>
+            <p>
+              Chez Esportify, nous prenons votre vie privée au sérieux. Cette politique explique simplement quelles informations nous collectons, 
+              comment nous les utilisons et comment nous les protégeons.
+            </p>
+          </div>
+
+          <div>
             <h4 class="text-lg mb-2 font-medium">Données collectées</h4>
             <p>
-              Esportify collecte uniquement les données nécessaires à votre identification et au bon fonctionnement du service :
+              Nous collectons uniquement les données nécessaires à votre utilisation du service :
             </p>
             <ul class="list-disc list-inside space-y-1 mt-2 ml-4">
-              <li>Nom d'utilisateur et adresse email lors de l'inscription</li>
-              <li>Informations d'authentification stockées localement (token JWT)</li>
-              <li>Préférences utilisateur liées aux événements et services</li>
+              <li>Votre nom d'utilisateur et votre adresse email lors de l'inscription</li>
+              <li>Votre mot de passe (toujours stocké de manière sécurisée)</li>
+              <li>Les événements que vous créez (si vous êtes organisateur)</li>
+              <li>Les événements que vous ajoutez en favoris</li>
+              <li>Votre rôle sur la plateforme (visiteur, joueur, organisateur ou administrateur)</li>
             </ul>
           </div>
 
           <div>
-            <h4 class="text-lg mb-2 font-medium">Stockage local</h4>
-            <p>Votre sécurité est notre priorité. Voici les mesures que nous prenons pour protéger vos données :</p>
+            <h4 class="text-lg mb-2 font-medium">Utilisation de vos données</h4>
+            <p>Vos données sont utilisées exclusivement pour :</p>
             <ul class="list-disc list-inside space-y-1 mt-2 ml-4">
-              <li>Utilisation d'un token JWT pour stocker l'ID et le rôle utilisateur</li>
-              <li>Stockage du token : localStorage (persistant) ou sessionStorage (temporaire) selon votre choix</li>
-              <li>La déconnexion supprime le token de manière sécurisée</li>
-              <li>Mot de passe crypté avant stockage dans la base de données</li>
+              <li>Créer et gérer votre compte utilisateur</li>
+              <li>Vous permettre de créer et de participer aux événements</li>
+              <li>Vous identifier lors de vos connexions</li>
+              <li>Afficher les événements que vous avez mis en favoris</li>
+              <li>Vous permettre de gérer vos propres événements (si vous êtes organisateur)</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-lg mb-2 font-medium">Protection de vos données</h4>
+            <p>Votre sécurité est notre priorité. Voici les mesures que nous prenons :</p>
+            <ul class="list-disc list-inside space-y-1 mt-2 ml-4">
+              <li>Utilisation de jetons JWT (JSON Web Tokens) pour stocker votre identifiant et votre rôle</li>
+              <li>Deux options de stockage à votre choix :
+                <ul class="list-disc list-inside ml-4 mt-1">
+                  <li><strong>Session temporaire</strong> : Informations conservées pendant la durée de votre session</li>
+                  <li><strong>Se souvenir de moi</strong> : Informations conservées pour vos prochaines connexions</li>
+                </ul>
+              </li>
+              <li>Suppression sécurisée de votre jeton lors de la déconnexion</li>
+              <li>Cryptage de votre mot de passe avant stockage dans notre base de données</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-lg mb-2 font-medium">Partage des données</h4>
+            <p>Notre approche concernant vos données :</p>
+            <ul class="list-disc list-inside space-y-1 mt-2 ml-4">
+              <li>Nous ne vendons pas vos données personnelles</li>
+              <li>Nous ne partageons pas vos informations avec des tiers</li>
+              <li>Nous ne collectons pas plus d'informations que nécessaire</li>
+              <li>Certaines informations publiques comme votre nom d'utilisateur sont visibles pour les autres utilisateurs</li>
+              <li>Si vous êtes organisateur, votre nom sera affiché comme créateur de vos événements</li>
             </ul>
           </div>
 
@@ -79,7 +119,16 @@ import Layout from "../layouts/layout.astro";
               <li>Droit d'opposition au traitement de vos données</li>
               <li>Droit à la portabilité de vos données</li>
             </ul>
-            <p class="mt-2">Pour exercer ces droits, contactez-nous à <a href="mailto:dpo@esportify.com" class="text-red-700 hover:text-red-600 transition-colors">josshanel@gmail.com</a></p>
+            <p class="mt-2">
+              Pour exercer ces droits ou pour toute question concernant vos données personnelles,
+              <button 
+                type="button" 
+                popovertarget="contactDPO" 
+                class="text-red-600 hover:text-heading transition-colors cursor-pointer"
+              >
+                contactez-nous
+              </button>.
+            </p>
           </div>
 
           <div>
@@ -91,7 +140,210 @@ import Layout from "../layouts/layout.astro";
               <li>Données de compte : tant que votre compte reste actif (possibilité de suppression sur demande)</li>
             </ul>
           </div>
+
+          <div class="mt-8 text-center text-xs">
+            <p>Cette politique a été mise à jour le 5 avril 2025.</p>
+          </div>
         </div>
       </section>
     </div>
+
+    <!-- Popup de formulaire de contact -->
+    <div 
+      class="rounded resize max-w-[900px] border border-popupEvent overflow-y-auto" 
+      id="contactDPO" 
+      popover
+    >
+      <div class="flex justify-between bg-popupEvent">
+        <h2 class="text-left flex-1 pl-2 cursor-move select-none py-1">
+          🔒 Contact
+        </h2>
+        <button class="text-xl px-2 select-none" popovertarget="contactDPO">
+          X
+        </button>
+      </div>
+
+      <form 
+        id="formContact" 
+        class="inset-0 w-full rounded max-w-[900px] mx-auto items-center justify-center z-50 px-5 py-2 transition-opacity"
+        action="https://api.web3forms.com/submit" 
+        method="POST"
+        x-data="{ 
+          formStatus: '',
+          formMessage: '',
+          submitForm(event) {
+            event.preventDefault();
+            this.formStatus = 'sending';
+
+            const form = document.getElementById('formContact');
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+              method: 'POST',
+              body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                this.formStatus = 'success';
+                this.formMessage = 'Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.';
+                form.reset();
+                setTimeout(() => {
+                  document.getElementById('contactDPO').hidePopover();
+                  this.formStatus = '';
+                }, 3000);
+              } else {
+                this.formStatus = 'error';
+                this.formMessage = 'Une erreur est survenue. Veuillez réessayer.';
+              }
+            })
+            .catch(error => {
+              this.formStatus = 'error';
+              this.formMessage = 'Une erreur est survenue. Veuillez réessayer.';
+              console.error('Erreur:', error);
+            });
+          }
+        }"
+        @submit="submitForm"
+      >
+        <!-- Web3Forms Access Key - Remplacez par votre clé d'API -->
+        <input type="hidden" name="access_key" value="2dcc3f1b-036f-48a7-987a-cdada0d05ae5">
+        
+        <!-- Sujet du message -->
+        <input type="hidden" name="subject" value="Demande RGPD - Esportify">
+
+        <!-- Message de statut du formulaire -->
+        <div 
+          x-show="formStatus !== ''" 
+          x-transition 
+          class="mb-4 p-3 rounded text-sm" 
+          :class="formStatus === 'success' ? 'bg-green-600 bg-opacity-25' : 'bg-red-600 bg-opacity-25'"
+        >
+          <p x-text="formMessage"></p>
+        </div>
+
+        <!-- Conteneur flex pour nom et email -->
+        <div class="flex flex-col md:flex-row gap-4 mb-4">
+          <!-- Nom -->
+          <div class="flex-1">
+            <label for="name" class="block mb-1 text-sm font-medium">Nom</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="bg-[#161215] text-text w-full border border-[#4d2d45] rounded px-3 py-2"
+              placeholder="Votre nom"
+            />
+          </div>
+
+          <!-- Email -->
+          <div class="flex-1">
+            <label for="email" class="block mb-1 text-sm font-medium">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="bg-[#161215] text-text w-full border border-[#4d2d45] rounded px-3 py-2"
+              placeholder="votre@email.com"
+            />
+          </div>
+        </div>
+
+        <!-- Message -->
+        <div>
+          <label for="message" class="block mb-1 text-sm font-medium">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            rows="8"
+            class="bg-[#161215] text-text w-full border border-[#4d2d45] flex-1 rounded px-3 py-2 min-h-40 min-w-72"
+            placeholder="Votre message concernant vos données personnelles..."
+          ></textarea>
+        </div>
+
+        <!-- Honeypot pour éviter le spam -->
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+        <!-- Bouton d'envoi -->
+        <div>
+          <button
+            type="submit"
+            class="w-full bg-popupEvent hover:bg-[#532447] text-white px-4 py-2 mt-5 mb-3 rounded transition-colors"
+            :disabled="formStatus === 'sending'"
+          >
+            <span x-show="formStatus !== 'sending'">Envoyer la demande</span>
+            <span x-show="formStatus === 'sending'">Envoi en cours...</span>
+          </button>
+        </div>
+      </form>
+    </div>
 </Layout>
+
+<script>
+  const popupMovable = document.getElementById("contactDPO") as HTMLElement;
+  const header = popupMovable.querySelector("h2") as HTMLElement;
+  let isDragging = false;
+  let startX = 0;
+  let startY = 0;
+  let offsetX = 0,
+    offsetY = 0;
+
+  header.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    startX = e.clientX - offsetX;
+    startY = e.clientY - offsetY;
+    popupMovable.classList.add("grabbing");
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+      offsetX = e.clientX - startX;
+      offsetY = e.clientY - startY;
+
+      // Obtenir les dimensions du popup
+      const rect = popupMovable.getBoundingClientRect();
+      
+      // Utilisation de `transform` pour un déplacement fluide
+      popupMovable.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+    }
+  });
+
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+    popupMovable.classList.remove("grabbing");
+  });
+</script>
+
+<style>
+  #contactDPO {
+    @apply bg-[#5e3554] text-text;
+    opacity: 0;
+    transition:
+      display 0.3s,
+      opacity 0.3s;
+    transition-behavior: allow-discrete;
+    &:popover-open {
+      display: block;
+      opacity: 1;
+      @starting-style {
+        opacity: 0;
+      }
+    }
+  }
+  
+  #formContact {
+    background: linear-gradient(to bottom, #251e23, #121012);
+  }
+  
+  input,
+  textarea {
+    border: 1px solid #4d2d45;
+  }
+  
+  .grabbing {
+    cursor: grabbing;
+  }
+</style>
