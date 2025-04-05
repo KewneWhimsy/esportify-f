@@ -43,10 +43,8 @@ import Layout from "../layouts/layout.astro";
                 +33 6 12 34 56 78
               </span>
               <span 
-                class="ml-3 text-sm text-green-500 transition-opacity duration-200 absolute"
-                x-show="copied"
-                x-transition:enter="opacity-0 -> opacity-100"
-                x-transition:leave="opacity-100 -> opacity-0"
+                class="ml-3 text-sm text-green-500 copy-notification absolute"
+                :class="{ 'copy-notification-visible': copied }"
               >
                 numéro copié
               </span>
@@ -147,8 +145,8 @@ import Layout from "../layouts/layout.astro";
             <h4 class="text-lg mb-2 font-medium">Durée de conservation</h4>
             <p>Vos données sont conservées :</p>
             <ul class="list-disc list-inside space-y-1 mt-2 ml-4">
-              <li>Token JWT dans sessionStorage : jusqu'à la fermeture de l'onglet ou du navigateur</li>
-              <li>Token JWT dans localStorage : jusqu'à la déconnexion explicite ou suppression des données de navigation</li>
+              <li>Information de connexion temporaire : jusqu'à la fermeture de votre navigateur</li>
+              <li>Information de connexion prolongée (option "Se souvenir de moi") : jusqu'à votre déconnexion manuelle</li>
               <li>Données de compte : tant que votre compte reste actif (possibilité de suppression sur demande)</li>
             </ul>
           </div>
@@ -430,4 +428,13 @@ import Layout from "../layouts/layout.astro";
   .grabbing {
     cursor: grabbing;
   }
+
+  .copy-notification {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.copy-notification-visible {
+  opacity: 1;
+}
 </style>
